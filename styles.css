@@ -85,8 +85,7 @@ body {
 }
 
 .total {
-    border-top: 3px solid var(--color-8);
-    border-left: 3px solid var(--color-8);
+    border: 3px solid var(--color-8);
     border-radius: 50%;
     background-color: var(--color-2);
     width: 120px;
