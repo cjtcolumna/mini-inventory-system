@@ -1,0 +1,120 @@
+:root {
+    --color-1: #16103A;
+    --color-2: 	#262953;
+    --color-3: 	#fc5c6a;
+    --color-4: 	#ffc852;
+    --color-5: #01d1ff;
+    --color-6: #c552e5;
+    --color-7: 	#0ed354;
+    --color-8: #E0E1E7;
+    --text-color-1: #E0E1E7;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh !important;
+    background-color: var(--color-1);
+    color: var(--text-color-1) !important;
+}
+
+/* index */
+
+.card-login {
+    width: 400px;
+    background-color: var(--color-2);
+    border-radius: 10px;
+    border-top: 5px solid var(--color-5);
+}
+
+.sign-up-link {
+    color: var(--color-5);
+    text-decoration: none;
+}
+
+/* dashboard */
+
+.new {
+    border-color: var(--color-3) !important;
+    border-top: 3px solid var(--color-3);
+}
+
+.card-new:hover {
+    border-color: var(--color-3) !important;
+    background-color: #fc5c6a15 !important;
+}
+
+.qualified {
+    border-color: var(--color-4) !important;
+    border-top: 3px solid var(--color-4);
+}
+
+.card-qualified:hover {
+    border-color: var(--color-4) !important;
+    background-color: #ffc85215 !important;
+}
+
+.demo {
+    border-color: var(--color-5) !important;
+    border-top: 3px solid var(--color-5);
+}
+
+.card-demo:hover {
+    border-color: var(--color-5) !important;
+    background-color: #01d1ff15 !important;
+}
+
+.quoted {
+    border-color: var(--color-6) !important;
+    border-top: 3px solid var(--color-6);
+}
+
+.card-quoted:hover {
+    border-color: var(--color-6) !important;
+    background-color: #c552e515 !important;
+}
+
+.deal {
+    border-color: var(--color-7) !important;
+    border-top: 3px solid var(--color-7);
+}
+
+.card-deal:hover {
+    border-color: var(--color-7) !important;
+    background-color: #0ed35415 !important;
+}
+
+.total {
+    border-top: 3px solid var(--color-8);
+    border-left: 3px solid var(--color-8);
+    border-radius: 50%;
+    background-color: var(--color-2);
+    width: 120px;
+    height: 120px;
+}
+
+
+.total-nunmber {
+    font-weight: 700;
+}
+
+.total-name {
+    font-weight: 400;
+}
+
+
+.card-lg {
+    z-index: 2;
+    border-top: 5px solid var(--color-8);
+    border-radius: 10px;
+    background-color: var(--color-2);
+}
+
+.card-sm {
+    border-radius: 10px;
+    border: 1px solid var(--color-8);
+}
+
+.card-sm:hover {
+    background-color: #E0E1E715;
+}
