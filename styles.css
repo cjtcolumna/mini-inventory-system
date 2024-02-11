@@ -18,6 +18,25 @@ body {
     color: var(--text-color-1) !important;
 }
 
+/* common */
+
+.navbar {
+    background-color: var(--color-2) !important;
+}
+
+.navbar a {
+    color: var(--text-color-1) !important;
+}
+
+.dropdown-menu {
+    background-color: var(--color-2) !important;
+    border-color: var(--color-8) !important;
+}
+
+.navbar-toggler-icon {
+    color: var(--color-8);
+}
+
 /* index */
 
 .card-login {
