@@ -8,6 +8,11 @@
     --color-7: 	#0ed354;
     --color-8: #E0E1E7;
     --text-color-1: #E0E1E7;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
 }
 
 body {
@@ -26,6 +31,20 @@ body {
 
 .navbar a {
     color: var(--text-color-1) !important;
+}
+
+.navbar li a:hover {
+    color: var(--color-5) !important;
+}
+
+.nav-item.last {
+    position: absolute;
+    right: 0;
+    padding-right: 1rem;
+}
+
+.dropdown-item:hover {
+    background-color: #E0E1E720;
 }
 
 .dropdown-menu {
@@ -135,4 +154,10 @@ body {
 
 .card-sm:hover {
     background-color: #E0E1E715;
+}
+
+@media only screen and (max-width: 992px) {
+    .nav-item.last {
+        position: unset !important;
+    }
 }
