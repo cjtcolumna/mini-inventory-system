@@ -42,7 +42,7 @@
                         </ul>
                     </li>
                     <li class="nav-item last">
-                        <a class="nav-link" href="index.html">Logout</a>
+                        <a class="nav-link" href="logout.php">Logout</a>
                     </li>
                 </ul>
             </div>
