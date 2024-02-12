@@ -56,7 +56,21 @@ body {
     color: var(--color-8);
 }
 
-/* index */
+.breadcrumb-item a {
+    color: var(--color-5);
+    text-decoration: none;
+}
+
+.breadcrumb-item.active {
+    color: var(--text-color-1);
+}
+
+i {
+    font-size: 14px;
+    padding-right: 5px;
+}
+
+/* login page */
 
 .card-login {
     width: 400px;
