@@ -17,7 +17,7 @@ if (!isset($_SESSION["logged_in"])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <title>Users</title>
+    <title>Document</title>
 </head>
 
 <body>
@@ -67,62 +67,6 @@ if (!isset($_SESSION["logged_in"])) {
         </ol>
     </nav>
     <!-- Breadcrumbs end -->
-
-    <div class="container-fluid p-5">
-        <div class="table-container-custom">
-            <div class="d-flex justify-content-between align-items-center">
-            <p class="h4">Users</p>
-            <a class="btn btn-sm btn-primary btn-user-custom" href="new_user.php">Add</a>
-            </div>
-            
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Email</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    <?php
-                    $conn = new mysqli("localhost", "root", "", "inventory_db");
-
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-
-                    $sql = "SELECT * FROM user";
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-                        // output data of each row
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr class=\"tr-hover-custom\" onclick=\"handleRowClick(this)\">
-                                <th scope=\"row\">" . $row["id"] . "</th>
-                                <td>" . $row["firstname"] . "</td>
-                                <td>" . $row["lastname"] . "</td>
-                                <td>" . $row["email"] . "</td>
-                                </tr>";
-                        }
-                    } else {
-                        echo "0 results";
-                    }
-
-                    $conn->close();
-
-                    ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
 </body>
 
 </html>
-
-<script>
-    function handleRowClick(row) {
-        window.location.href = "view_user.php";
-    }
-</script>

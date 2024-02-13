@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 :root {
     --color-1: #16103A;
     --color-2: 	#262953;
@@ -19,8 +23,14 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh !important;
-    background-color: var(--color-1);
-    color: var(--text-color-1) !important;
+    background-color: var(--color-1) !important;
+    color: var(--text-color-1);
+}
+
+/* override */
+
+.table > :not(caption) > * > * {
+    background-color: unset;
 }
 
 /* common */
@@ -30,11 +40,11 @@ body {
 }
 
 .navbar a {
-    color: var(--text-color-1) !important;
+    color: var(--text-color-1);
 }
 
 .navbar li a:hover {
-    color: var(--color-5) !important;
+    color: var(--color-5);
 }
 
 .nav-item.last {
@@ -48,8 +58,8 @@ body {
 }
 
 .dropdown-menu {
-    background-color: var(--color-2) !important;
-    border-color: var(--color-8) !important;
+    background-color: var(--color-2);
+    border-color: var(--color-8);
 }
 
 .navbar-toggler-icon {
@@ -170,8 +180,51 @@ i {
     background-color: #E0E1E715;
 }
 
+/* users */
+
+.table {
+    margin: 1rem 0;
+}
+
+.table-container-custom {
+    background-color: var(--color-2) !important;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+tr[class="tr-hover-custom"]:hover {
+    background-color: #01d1ff15; 
+    cursor: pointer;
+}
+
+th, td {
+    color: var(--text-color-1) !important;
+}
+
+.btn-user-custom {
+    width: 150px;
+}
+
+.user-from-custom {
+    padding-top: 1rem;
+    width: 60% !important;
+
+}
+
+/* new user */
+
+.new-user-container-custom {
+    background-color: var(--color-2) !important;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
 @media only screen and (max-width: 992px) {
     .nav-item.last {
         position: unset !important;
+    }
+
+    .user-from-custom {
+        width: 80% !important;
     }
 }
