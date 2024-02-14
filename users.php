@@ -122,7 +122,8 @@ if (!isset($_SESSION["logged_in"])) {
 </html>
 
 <script>
-    function handleRowClick(row) {
-        window.location.href = "view_user.php";
+    function handleRowClick(element) {
+        let id = element.children[0].innerHTML
+        window.location.href = "view_user.php?id=" + id;
     }
 </script>

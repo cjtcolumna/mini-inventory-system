@@ -1,7 +1,3 @@
-* {
-    box-sizing: border-box;
-}
-
 :root {
     --color-1: #16103A;
     --color-2: 	#262953;
@@ -34,6 +30,10 @@ body {
 }
 
 /* common */
+
+input[type="text"], input[type="email"], input[type="password"] {
+    min-width: 300px !important;
+}
 
 .navbar {
     background-color: var(--color-2) !important;
@@ -76,7 +76,7 @@ body {
 }
 
 i {
-    font-size: 14px;
+    font-size: 1.5rem !important;
     padding-right: 5px;
 }
 
@@ -217,6 +217,52 @@ th, td {
     background-color: var(--color-2) !important;
     padding: 1rem;
     border-radius: 10px;
+}
+
+/* view profile */
+
+div.d-flex.flex-row div.nav-left-custom.mt-3 {
+    border-right: 1px solid #545778;
+    margin-right: 1rem;
+    width: 120px;
+    min-width: 120px;
+}
+
+div.nav-left-custom a.nav-left-options {
+    display: block;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 4rem;
+    text-decoration: none;
+    color: var(--text-color-1);
+    cursor: pointer;
+}
+
+
+div.nav-left-custom a.nav-left-options-active {
+    background-color: var(--color-5);
+    color:#16103A;
+}
+
+div.d-flex .profile-settings-tab {
+    display: none;
+}
+
+div.d-flex .change-password-tab {
+    display: none;
+}
+
+div.d-flex .account-settings-tab {
+    display: none;
+}
+
+.display-block {
+    display: block !important;
+}
+
+.fa-triangle-exclamation, .fa-circle-check {
+    font-size: 1.5rem !important;
 }
 
 @media only screen and (max-width: 992px) {

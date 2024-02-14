@@ -4,6 +4,30 @@ session_start();
 if (!isset($_SESSION["logged_in"])) {
     header("Location: index.php");
 }
+
+$conn = new mysqli("localhost", "root", "", "inventory_db");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$id = $_GET["id"];
+$_SESSION["selected_user_id"] = $id;
+if(isset($_GET['success'])){
+
+}
+
+$sql = "SELECT * FROM user WHERE id=$id";
+$result = $conn->query($sql);
+
+
+if ($result->num_rows === 1) {
+    $row = $result->fetch_assoc();
+    $firstname = $row["firstname"];
+    $lastname = $row["lastname"];
+    $email = $row["email"];
+}
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +92,121 @@ if (!isset($_SESSION["logged_in"])) {
         </ol>
     </nav>
     <!-- Breadcrumbs end -->
+
+    <div class="container-fluid p-5">
+        <div class="new-user-container-custom">
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="h4">User Info</p>
+                <a class="btn btn-sm btn-secondary btn-user-custom" href="users.php">Back to list</a>
+            </div>
+            <hr>
+            <div class="d-flex flex-row">
+                <div class="nav-left-custom mt-3">
+                    <a id="selected" class="nav-left-options nav-left-options-active" onclick="optionSelected(this)" onmouseover="addHoverEffects(this)" onmouseout="removeHoverEffects(this)">Profile Settings</a>
+                    <a class="nav-left-options" onclick="optionSelected(this)" onmouseover="addHoverEffects(this)" onmouseout="removeHoverEffects(this)">Change Password</a>
+                    <a class="nav-left-options" onclick="optionSelected(this)" onmouseover="addHoverEffects(this)" onmouseout="removeHoverEffects(this)">Account Settings</a>
+                </div>
+                <div id="profile-settings-tab" class="container-fluid mt-3 tab-right-custom profile-settings-tab display-block">
+                    <p class="h5">Profile Settings</p>
+                    
+                    <form class="d-block mx-auto user-from-custom" action="update_user.php" method="post">
+                        <div>
+                            <!--
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <h4 class="alert-warning-header-custom text-success"><i class="fa-solid fa-circle-check"></i>Well Done!</h4>
+                                <p>Successfuly Changed User Information.</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            -->
+                            <label for="input-firstname" class="form-label">First Name</label>
+                            <input id="input-firstname" class="form-control mb-3" type="text" name="firstname" value="<?php echo $firstname ?>" required>
+                        </div>
+                        <div>
+                            <label for="input-lastname" class="form-label">Last Name</label>
+                            <input id="input-lastname" class="form-control mb-3" type="text" name="lastname" value="<?php echo $lastname ?>" required>
+                        </div>
+                        <div>
+                            <label for="input-email" class="form-label">Email</label>
+                            <input id="input-email" class="form-control mb-3" type="email" name="email" value="<?php echo $email ?>" required>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-primary m-3 btn-user-custom" type="submit">Save</button>
+                            <a class="btn btn-secondary ms-0 m-3 btn-user-custom" href="users.php">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+                <div id="change-password-tab" class="container-fluid mt-3 tab-right-custom change-password-tab">
+                    <p class="h5">Change Password</p>
+                    <form class="d-block mx-auto user-from-custom" action="#.php" method="post">
+                        <div>
+                            <label for="input-password" class="form-label">New Password</label>
+                            <input id="input-password" class="form-control mb-3" type="password" name="password" required>
+                        </div>
+                        <div>
+                            <label for="input-confirm-password" class="form-label">Confirm New Password</label>
+                            <input id="input-confirm-password" class="form-control mb-3" type="password" name="confirm_password" required>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-primary m-3 btn-user-custom" type="submit">Save</button>
+                            <a class="btn btn-secondary ms-0 m-3 btn-user-custom" href="users.php">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+                <div id="account-settings-tab" class="container-fluid mt-3 tab-right-custom account-settings-tab">
+                    <p class="h5">Account Settings</p>
+                    <form class="d-block mx-auto user-from-custom" action="#.php" method="post">
+                        <div class="alert alert-warning" role="alert">
+                            <h4 class="alert-warning-header-custom text-warning"><i class="fa-solid fa-triangle-exclamation"></i>Warning!</h4>
+                            <p>Deleting this account may affect another record. Please make sure that you know what you are doing.</p>
+                        </div>
+                        <div>
+                            <p class="m-0">Remove Account</p>
+                            <input id="input-checkbox-remove-account" class="form-check-input mb-3" type="checkbox" value="remove" required>
+                            <label for="input-checkbox-remove-account" class="form-check-label">Delete this Account?</label>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-primary m-3 btn-user-custom" type="submit">Yes, Delete</button>
+                            <a class="btn btn-secondary ms-0 m-3 btn-user-custom" href="users.php">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
 </body>
 
 </html>
+
+<script>
+    function optionSelected(element) {
+        document.getElementById("selected").removeAttribute("id");
+        element.id = "selected";
+        if (element.innerHTML === "Profile Settings") {
+            document.getElementById("profile-settings-tab").classList.add("display-block");
+            document.getElementById("change-password-tab").classList.remove("display-block");
+            document.getElementById("account-settings-tab").classList.remove("display-block");
+        } else if (element.innerHTML === "Change Password") {
+            document.getElementById("profile-settings-tab").classList.remove("display-block");
+            document.getElementById("change-password-tab").classList.add("display-block");
+            document.getElementById("account-settings-tab").classList.remove("display-block");
+        } else if (element.innerHTML === "Account Settings") {
+            document.getElementById("profile-settings-tab").classList.remove("display-block");
+            document.getElementById("change-password-tab").classList.remove("display-block");
+            document.getElementById("account-settings-tab").classList.add("display-block");
+        }
+    }
+
+    function addHoverEffects(element) {
+        document.getElementById("selected").classList.remove("nav-left-options-active");
+        element.classList.add("nav-left-options-active");
+    }
+
+    function removeHoverEffects(element) {
+
+        element.classList.remove("nav-left-options-active");
+        document.getElementById("selected").classList.add("nav-left-options-active");
+    }
+</script>

@@ -73,29 +73,29 @@ if (!isset($_SESSION["logged_in"])) {
         <div class="new-user-container-custom">
             <div class="d-flex justify-content-between align-items-center">
                 <p class="h4">New User</p>
-                <a class="btn btn-sm btn-danger btn-user-custom" href="users.php">Back to list</a>
+                <a class="btn btn-sm btn-secondary btn-user-custom" href="users.php">Back to list</a>
             </div>
             <hr>
             <form class="d-block mx-auto user-from-custom" action="create_user.php" method="post">
                 <div>
                     <label for="input-firstname" class="form-label">First Name</label>
-                    <input id="input-firstname" class="form-control mb-3" type="text" name="firstname" placeholder="First Name" required>
+                    <input id="input-firstname" class="form-control mb-3" type="text" name="firstname" required>
                 </div>
                 <div>
                     <label for="input-lastname" class="form-label">Last Name</label>
-                    <input id="input-lastname" class="form-control mb-3" type="textl" name="lastname" placeholder="Last Name" required>
+                    <input id="input-lastname" class="form-control mb-3" type="text" name="lastname" required>
                 </div>
                 <div>
                     <label for="input-email" class="form-label">Email</label>
-                    <input id="input-email" class="form-control mb-3" type="email" name="email" placeholder="Email" required>
+                    <input id="input-email" class="form-control mb-3" type="email" name="email" required>
                 </div>
                 <div>
                     <label for="input-password" class="form-label">Password</label>
-                    <input id="input-password" class="form-control mb-3" type="password" name="password" placeholder="Password" required>
+                    <input id="input-password" class="form-control mb-3" type="password" name="password" required>
                 </div>
                 <div class="d-flex justify-content-center">
                     <button class="btn btn-primary m-3 btn-user-custom" type="submit">Save</button>
-                    <a class="btn btn-secondary ms-0 m-3 btn-user-custom" type="submit">Cancel</a>
+                    <a class="btn btn-secondary ms-0 m-3 btn-user-custom" href="users.php">Cancel</a>
                 </div>
             </form>
 
