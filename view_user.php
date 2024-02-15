@@ -25,6 +25,8 @@ if ($result->num_rows === 1) {
     $firstname = $row["firstname"];
     $lastname = $row["lastname"];
     $email = $row["email"];
+}else {
+    header("Location: users.php");
 }
 
 $conn->close();
@@ -130,14 +132,14 @@ $conn->close();
                             <input id="input-email" class="form-control mb-3" type="email" name="email" value="<?php echo $email ?>" required>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary m-3 btn-user-custom" type="submit">Save</button>
+                            <button class="btn btn-primary m-3 btn-user-custom" type="submit" name="update_info">Save</button>
                             <a class="btn btn-secondary ms-0 m-3 btn-user-custom" href="users.php">Cancel</a>
                         </div>
                     </form>
                 </div>
                 <div id="change-password-tab" class="container-fluid mt-3 tab-right-custom change-password-tab">
                     <p class="h5">Change Password</p>
-                    <form class="d-block mx-auto user-from-custom" action="#.php" method="post">
+                    <form class="d-block mx-auto user-from-custom" action="update_user.php" method="post">
                         <div>
                             <label for="input-password" class="form-label">New Password</label>
                             <input id="input-password" class="form-control mb-3" type="password" name="password" required>
@@ -147,14 +149,14 @@ $conn->close();
                             <input id="input-confirm-password" class="form-control mb-3" type="password" name="confirm_password" required>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary m-3 btn-user-custom" type="submit">Save</button>
+                            <button class="btn btn-primary m-3 btn-user-custom" type="submit" name="update_password">Save</button>
                             <a class="btn btn-secondary ms-0 m-3 btn-user-custom" href="users.php">Cancel</a>
                         </div>
                     </form>
                 </div>
                 <div id="account-settings-tab" class="container-fluid mt-3 tab-right-custom account-settings-tab">
                     <p class="h5">Account Settings</p>
-                    <form class="d-block mx-auto user-from-custom" action="#.php" method="post">
+                    <form class="d-block mx-auto user-from-custom" action="delete_user.php" method="post">
                         <div class="alert alert-warning" role="alert">
                             <h4 class="alert-warning-header-custom text-warning"><i class="fa-solid fa-triangle-exclamation"></i>Warning!</h4>
                             <p>Deleting this account may affect another record. Please make sure that you know what you are doing.</p>

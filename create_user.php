@@ -24,8 +24,8 @@
         exit();
     } else {
         echo "Error: $conn->error";
-        echo "br";
-        echo "<p>Email: $email</p><p>Email: $password</p><p>Email: $firstname</p><p>Email: $lastname</p>";
+        header("Location: users.php");
+        exit();
     }
     
     $conn->close();
