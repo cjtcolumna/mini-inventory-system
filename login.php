@@ -13,7 +13,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        if($_POST["email"] === $row["email"] && $_POST["password"] === $row["password"]) {
+        if($_POST["email"] === $row["email"] && hash('sha256', $_POST["password"]) === $row["password"]) {
             $_SESSION["logged_in"] = TRUE;
             $_SESSION["email"] = $row["email"];
             $_SESSION["password"] = $row["password"];

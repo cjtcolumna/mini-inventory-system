@@ -29,10 +29,11 @@ if (isset($_POST['update_info'])) {
     }
 }elseif (isset($_POST['update_password'])) {
     $password = $_POST['password'];
+    $hashed_password = hash('sha256', $password);
     $confirm_password = $_POST['confirm_password'];
 
     if($password === $confirm_password) {
-        $sql = "UPDATE user SET password='$password' WHERE id=$id";
+        $sql = "UPDATE user SET password='$hashed_password' WHERE id=$id";
         $result = $conn->query($sql);
 
         if ($result) {

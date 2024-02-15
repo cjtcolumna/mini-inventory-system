@@ -13,10 +13,11 @@
 
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $hashed_password = hash('sha256', $password);
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     
-    $sql = "INSERT INTO user (email, password, firstname, lastname) VALUES ('$email', '$password', '$firstname', '$lastname')";
+    $sql = "INSERT INTO user (email, password, firstname, lastname) VALUES ('$email', '$hashed_password', '$firstname', '$lastname')";
     $result = $conn->query($sql);
     
     if ($result) {
