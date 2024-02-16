@@ -22,10 +22,13 @@ if (isset($_POST['update_info'])) {
     $result = $conn->query($sql);
 
     if ($result) {
+        $_SESSION['user_data_update_success'] = true;
         header("Location: view_user.php?id=$id&success=true");
         exit();
     } else {
-        echo "Error: $conn->error";
+        $_SESSION['email_taken'] = true;
+        header("Location: view_user.php?id=$id&success=false");
+        exit();
     }
 }elseif (isset($_POST['update_password'])) {
     $password = $_POST['password'];
@@ -37,6 +40,7 @@ if (isset($_POST['update_info'])) {
         $result = $conn->query($sql);
 
         if ($result) {
+            $_SESSION['user_password_update_success'] = true;
             header("Location: view_user.php?id=$id&success=true");
             exit();
         } else {
@@ -45,6 +49,7 @@ if (isset($_POST['update_info'])) {
 
 
     }else{
+        $_SESSION['password_does_not_match'] = true;
         header("Location: view_user.php?id=$id&success=false");
         exit();
     }

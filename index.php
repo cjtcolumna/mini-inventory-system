@@ -1,6 +1,5 @@
 <?php
 session_start();
-session_unset();
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +20,10 @@ session_unset();
     <div class="container-fluid d-flex justify-content-center align-items-center h-100">
         <div class="card-login p-5">
             <p class="h1 text-center pb-5">Login</p>
+            <div id="invalid-alert-box" class="alert alert-danger alert-dismissible fade show d-none-custom" role="alert">
+                <strong id="invalid-text">No account found!</strong> Try again.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <form class="d-grid gap-2" action="login.php" method="post">
                 <input class="form-control" type="email" name="email" placeholder="Email" required>
                 <input class="form-control" type="password" name="password" placeholder="Password" required>
@@ -29,6 +32,19 @@ session_unset();
             </form>
         </div>
     </div>
+    <?php
+    if (isset($_SESSION['email_incorrect'])) {
+        echo '<script>
+        document.getElementById("invalid-alert-box").style.display = "block";
+        </script>';
+    } else if (isset($_SESSION['password_incorrect'])) {
+        echo '<script>
+        document.getElementById("invalid-alert-box").style.display = "block";
+        document.getElementById("invalid-text").innerHTML = "Wrong password!";
+        </script>';
+    }
+    session_unset();
+    ?>
 </body>
 
 </html>

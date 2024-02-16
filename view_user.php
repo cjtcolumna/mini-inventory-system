@@ -12,8 +12,7 @@ if ($conn->connect_error) {
 
 $id = $_GET["id"];
 $_SESSION["selected_user_id"] = $id;
-if(isset($_GET['success'])){
-
+if (isset($_GET['success'])) {
 }
 
 $sql = "SELECT * FROM user WHERE id=$id";
@@ -25,7 +24,7 @@ if ($result->num_rows === 1) {
     $firstname = $row["firstname"];
     $lastname = $row["lastname"];
     $email = $row["email"];
-}else {
+} else {
     header("Location: users.php");
 }
 
@@ -96,6 +95,14 @@ $conn->close();
     <!-- Breadcrumbs end -->
 
     <div class="container-fluid p-5">
+        <div id="custom-alert-box" class="alert alert-danger alert-dismissible fade show d-none-custom" role="alert">
+            <strong id="custom-alert-text">Password does not match!</strong> Please try again.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div id="custom-success-alert-box" class="alert alert-success alert-dismissible fade show d-none-custom" role="alert">
+            <strong>Well Done! </strong><span id="custom-success-alert-text">User account successfully created.</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div class="new-user-container-custom">
             <div class="d-flex justify-content-between align-items-center">
                 <p class="h4">User Info</p>
@@ -110,16 +117,9 @@ $conn->close();
                 </div>
                 <div id="profile-settings-tab" class="container-fluid mt-3 tab-right-custom profile-settings-tab display-block">
                     <p class="h5">Profile Settings</p>
-                    
+
                     <form class="d-block mx-auto user-from-custom" action="update_user.php" method="post">
                         <div>
-                            <!--
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <h4 class="alert-warning-header-custom text-success"><i class="fa-solid fa-circle-check"></i>Well Done!</h4>
-                                <p>Successfuly Changed User Information.</p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                            -->
                             <label for="input-firstname" class="form-label">First Name</label>
                             <input id="input-firstname" class="form-control mb-3" type="text" name="firstname" value="<?php echo $firstname ?>" required>
                         </div>
@@ -140,6 +140,7 @@ $conn->close();
                 <div id="change-password-tab" class="container-fluid mt-3 tab-right-custom change-password-tab">
                     <p class="h5">Change Password</p>
                     <form class="d-block mx-auto user-from-custom" action="update_user.php" method="post">
+
                         <div>
                             <label for="input-password" class="form-label">New Password</label>
                             <input id="input-password" class="form-control mb-3" type="password" name="password" required>
@@ -178,6 +179,42 @@ $conn->close();
 
         </div>
     </div>
+    <?php
+    if (isset($_SESSION['email_taken'])) {
+        echo '<script>
+        document.getElementById("custom-alert-text").innerHTML = "Email already taken!";
+        document.getElementById("custom-alert-box").style.display = "block";
+        </script>';
+        unset($_SESSION['email_taken']);
+    }
+    if (isset($_SESSION['password_does_not_match'])) {
+        echo '<script>
+        document.getElementById("custom-alert-text").innerHTML = "Password does not match!";
+        document.getElementById("custom-alert-box").style.display = "block";
+        </script>';
+        unset($_SESSION['password_does_not_match']);
+    }
+    if (isset($_SESSION['user_creation_success'])) {
+        echo '<script>
+        document.getElementById("custom-success-alert-box").style.display = "block";
+        </script>';
+        unset($_SESSION['user_creation_success']);
+    }
+    if (isset($_SESSION['user_data_update_success'])) {
+        echo '<script>
+        document.getElementById("custom-success-alert-box").style.display = "block";
+        document.getElementById("custom-success-alert-text").innerHTML = "User data successfully updated.";
+        </script>';
+        unset($_SESSION['user_data_update_success']);
+    }
+    if (isset($_SESSION['user_password_update_success'])) {
+        echo '<script>
+        document.getElementById("custom-success-alert-box").style.display = "block";
+        document.getElementById("custom-success-alert-text").innerHTML = "User password successfully updated";
+        </script>';
+        unset($_SESSION['user_password_update_success']);
+    }
+    ?>
 </body>
 
 </html>

@@ -17,15 +17,21 @@
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     
-    $sql = "INSERT INTO user (email, password, firstname, lastname) VALUES ('$email', '$hashed_password', '$firstname', '$lastname')";
-    $result = $conn->query($sql);
+    $sql1 = "INSERT INTO user (email, password, firstname, lastname) VALUES ('$email', '$hashed_password', '$firstname', '$lastname')";
+    $result1 = $conn->query($sql1);
     
-    if ($result) {
-        header("Location: users.php");
+    if ($result1) {
+        $sql2 = "SELECT * FROM user WHERE email='$email'";
+        $result2 = $conn->query($sql2);
+        $row = $result2->fetch_assoc();
+        $id = $row['id'];
+        $_SESSION['user_creation_success'] = true;
+        header("Location: view_user.php?id=$id");
         exit();
     } else {
-        echo "Error: $conn->error";
-        header("Location: users.php");
+        //echo "Error: $conn->error";
+        $_SESSION['email_taken'] = true;
+        header("Location: new_user.php");
         exit();
     }
     

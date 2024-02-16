@@ -69,12 +69,16 @@ if (!isset($_SESSION["logged_in"])) {
     <!-- Breadcrumbs end -->
 
     <div class="container-fluid p-5">
+        <div id="user-deletion-alert-box" class="alert alert-success alert-dismissible fade show d-none-custom" role="alert">
+            <strong>Well Done! </strong><span id="user-deletion-alert-text">User account successfully deleted.</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div class="table-container-custom">
             <div class="d-flex justify-content-between align-items-center">
-            <p class="h4">Users</p>
-            <a class="btn btn-sm btn-primary btn-user-custom" href="new_user.php">Add</a>
+                <p class="h4">Users</p>
+                <a class="btn btn-sm btn-primary btn-user-custom" href="new_user.php">Add</a>
             </div>
-            
+
             <table class="table">
                 <thead>
                     <tr>
@@ -117,13 +121,20 @@ if (!isset($_SESSION["logged_in"])) {
         </div>
     </div>
 
+    <?php
+    if (isset($_SESSION['user_deletion_success'])) {
+        echo '<script>
+        document.getElementById("user-deletion-alert-box").style.display = "block";
+        </script>';
+        unset($_SESSION['user_deletion_success']);
+    }
+    ?>
+    <script>
+        function handleRowClick(element) {
+            let id = element.children[0].innerHTML
+            window.location.href = "view_user.php?id=" + id;
+        }
+    </script>
 </body>
 
 </html>
-
-<script>
-    function handleRowClick(element) {
-        let id = element.children[0].innerHTML
-        window.location.href = "view_user.php?id=" + id;
-    }
-</script>

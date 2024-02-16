@@ -77,6 +77,10 @@ if (!isset($_SESSION["logged_in"])) {
             </div>
             <hr>
             <form class="d-block mx-auto user-from-custom" action="create_user.php" method="post">
+                <div id="invalid-alert-box" class="alert alert-danger alert-dismissible fade show d-none-custom" role="alert">
+                    <strong id="invalid-text">Email already taken!</strong> Try again.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <div>
                     <label for="input-firstname" class="form-label">First Name</label>
                     <input id="input-firstname" class="form-control mb-3" type="text" name="firstname" required>
@@ -102,7 +106,14 @@ if (!isset($_SESSION["logged_in"])) {
 
         </div>
     </div>
-
+    <?php
+    if (isset($_SESSION['email_taken'])) {
+        echo '<script>
+        document.getElementById("invalid-alert-box").style.display = "block";
+        </script>';
+        unset($_SESSION['email_taken']);
+    }
+    ?>
 </body>
 
 </html>

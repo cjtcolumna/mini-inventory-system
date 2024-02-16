@@ -17,6 +17,7 @@ $sql = "DELETE FROM user WHERE id=$id";
 $result = $conn->query($sql);
 
 if ($result) {
+    $_SESSION['user_deletion_success'] = true;
     header("Location: users.php?success=true");
     exit();
 } else {
