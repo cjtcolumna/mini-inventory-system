@@ -36,7 +36,10 @@ if (!isset($_SESSION["logged_in"])) {
                         <a class="nav-link" href="users.php">Users</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Customers</a>
+                        <a class="nav-link" href="customers.php">Customers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="materials.php">Materials</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

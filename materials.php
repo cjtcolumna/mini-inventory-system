@@ -16,8 +16,8 @@ if (!isset($_SESSION["logged_in"])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <title>Users</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Customers</title>
 </head>
 
 <body>
@@ -66,78 +66,10 @@ if (!isset($_SESSION["logged_in"])) {
     <nav class="p-3 custom-color" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><i class="fa-solid fa-house"></i><a class="breadcrumb-custom-link" href="dashboard.php">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Users</li>
+            <li class="breadcrumb-item active" aria-current="page">Materials</li>
         </ol>
     </nav>
     <!-- Breadcrumbs end -->
-
-    <div class="container-fluid p-5">
-        <div id="user-deletion-alert-box" class="alert alert-success alert-dismissible fade show d-none-custom" role="alert">
-            <strong>Well Done! </strong><span id="user-deletion-alert-text">User account successfully deleted.</span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <div class="table-container-custom">
-            <div class="d-flex justify-content-between align-items-center">
-                <p class="h4">Users</p>
-                <a class="btn btn-sm btn-primary btn-user-custom" href="new_user.php">Add</a>
-            </div>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Email</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    <?php
-                    $conn = new mysqli("localhost", "root", "", "inventory_db");
-
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-
-                    $sql = "SELECT * FROM user";
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-                        // output data of each row
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr class=\"tr-hover-custom\" onclick=\"handleRowClick(this)\">
-                                <th scope=\"row\">" . $row["id"] . "</th>
-                                <td>" . $row["firstname"] . "</td>
-                                <td>" . $row["lastname"] . "</td>
-                                <td>" . $row["email"] . "</td>
-                                </tr>";
-                        }
-                    } else {
-                        echo "0 results";
-                    }
-
-                    $conn->close();
-
-                    ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <?php
-    if (isset($_SESSION['user_deletion_success'])) {
-        echo '<script>
-        document.getElementById("user-deletion-alert-box").style.display = "block";
-        </script>';
-        unset($_SESSION['user_deletion_success']);
-    }
-    ?>
-    <script>
-        function handleRowClick(element) {
-            let id = element.children[0].innerHTML
-            window.location.href = "view_user.php?id=" + id;
-        }
-    </script>
 </body>
 
 </html>

@@ -16,8 +16,8 @@ if (!isset($_SESSION["logged_in"])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Customers</title>
 </head>
 
 <body>
@@ -36,7 +36,10 @@ if (!isset($_SESSION["logged_in"])) {
                         <a class="nav-link" href="users.php">Users</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Customers</a>
+                        <a class="nav-link" href="customers.php">Customers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="materials.php">Materials</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -63,7 +66,8 @@ if (!isset($_SESSION["logged_in"])) {
     <nav class="p-3 custom-color" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><i class="fa-solid fa-house"></i><a class="breadcrumb-custom-link" href="dashboard.php">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Users</li>
+            <li class="breadcrumb-item"><a class="breadcrumb-custom-link" href="users.php">Users</a></li>
+            <li class="breadcrumb-item active" aria-current="page">View</li>
         </ol>
     </nav>
     <!-- Breadcrumbs end -->
