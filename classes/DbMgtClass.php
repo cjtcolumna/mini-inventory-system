@@ -37,9 +37,9 @@ class DbMgtClass
 				$separator = ",";
 			}
 			$field = $field . $separator . $array_key;
-			$value = $value . $separator . $array_val;
+			$value = $value . $separator . "'" . $array_val . "'";
 		}
-		$sql = "insert into " . $table . " (" . $field . ") value(" . $value . ")";
+		$sql = "insert into " . $table . " (" . $field . ") values(" . $value . ")";
 		$conn->query($sql);
 	}
 
@@ -51,6 +51,7 @@ class DbMgtClass
 		}
 		$sql = "delete from $table $condition";
 		$conn->query($sql);
+		return $sql;
 	}
 
 	public function UpdateRecord($table, array $data, $condition)
@@ -62,15 +63,16 @@ class DbMgtClass
 			$condition = "where " . $condition;
 		}
 		$data_count = count($data);
-		foreach ($data as $array_key => $array_value) {
+		foreach ($data as $array_key => $array_val) {
 			$x++;
 			if ($x >= 2 and $x <= $data_count) {
 				$separator = ",";
 			}
-			$field = $field . $separator . $array_key . "=" . $array_value;
+			$field = $field . $separator . $array_key . "='" . $array_val . "'";
 		}
 		$sql = "update $table set $field $condition";
 		$conn->query($sql);
+		return $sql;
 	}
 
 	public function FetchCol($table, $condition = "", $field)
@@ -81,9 +83,14 @@ class DbMgtClass
 		}
 		$sql = "select * from $table $condition";
 		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-		$fd = $row[$field];
-		return $fd;
+		if($result){
+			$row = $result->fetch_assoc();
+			$fd = $row[$field];
+			return $fd;
+		}else {
+			return "";
+		}
+		
 	}
 
 	public function FetchRow($table, $condition = "")

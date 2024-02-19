@@ -1,8 +1,20 @@
 <?php
+include "classes/UserClass.php";
 session_start();
 
-if(!isset($_SESSION['logged_in'])){
+if (!isset($_SESSION['logged_in'])) {
     header("Location: index.php");
+}
+
+if (isset($_POST['btn_save'])) {
+    $firstname = $_POST['input_firstname'];
+    $lastname = $_POST['input_lastname'];
+    $email = $_POST['input_email'];
+    $password = $_POST['input_password'];
+    $confirm_password = $_POST['input_confirm_password'];
+
+    $form = new UserClass();
+    $error_msg = $form->CreateUserRecord($firstname, $lastname, $email, $password, $confirm_password);
 }
 ?>
 
@@ -33,14 +45,14 @@ if(!isset($_SESSION['logged_in'])){
 <![endif]-->
 </head>
 
-<body class="fix-header card-no-border">
-    <?php include "templates/preloader.php" ?>
+<body class="card-no-border">
+    <?php include "includes/preloader.php" ?>
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <div id="main-wrapper">
-        <?php include "templates/header.php" ?>
-        <?php include "templates/navbar.php" ?>
+        <?php include "includes/header.php" ?>
+        <?php include "includes/navbar.php" ?>
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
@@ -70,11 +82,125 @@ if(!isset($_SESSION['logged_in'])){
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
+                <?php
+                    if(isset($error_msg)){
+                        if(!empty($error_msg)){
+                ?>
+                <div class="alert alert-danger text-center">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h3 class="text-danger">
+                        <i class="fa fa-times-circle"></i>
+                        Oops!
+                    </h3>
+                    <?php echo "$error_msg" ?>
+                </div>
+                <?php
+                        };
+                    };
+                ?>
+
                 <div class="row">
-                    <div class="col-12">
-                        <div class="card">
+                    <div class="col-lg-12">
+                        <div class="card card-outline-info">
+                            <h4 class="mt-4 ml-3">New User</h4>
+                            <hr>
                             <div class="card-body">
-                                This is some text within a card block.
+                                <form class="form-horizontal" action="user_new.php" method="post" autocomplete="off">
+                                    <h5>Personal Information</h5>
+                                    <small>
+                                        <p>
+                                            Field mark with (
+                                            <span style="color: red">*</span>
+                                            ) is required.
+                                        </p>
+                                    </small>
+                                    <hr>
+                                    <div class="form-group mt-5">
+                                        <div class="row">
+                                            <label class="col-md-3 text-right">
+                                                <h6>
+                                                    First Name
+                                                    <span style="color: red">*</span>
+                                                </h6>
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input class="form-control" type="text" name="input_firstname" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-3 text-right">
+                                                <h6>
+                                                    Last Name
+                                                    <span style="color: red">*</span>
+                                                </h6>
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input class="form-control" type="text" name="input_lastname" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h5>Account Details</h5>
+                                    <small>
+                                        <p>
+                                            Field mark with (
+                                            <span style="color: red">*</span>
+                                            ) is required.
+                                        </p>
+                                    </small>
+                                    <hr>
+                                    <div class="form-group mt-5">
+                                        <div class="row">
+                                            <label class="col-md-3 text-right">
+                                                <h6>
+                                                    Email
+                                                    <span style="color: red">*</span>
+                                                </h6>
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input class="form-control" type="email" name="input_email" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-3 text-right">
+                                                <h6>
+                                                    Password
+                                                    <span style="color: red">*</span>
+                                                </h6>
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input class="form-control" type="password" name="input_password" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-3 text-right">
+                                                <h6>
+                                                    Confirm Password
+                                                    <span style="color: red">*</span>
+                                                </h6>
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input class="form-control" type="password" name="input_confirm_password" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3 text-right"></div>
+                                            <div class="col-md-6">
+                                                <button type="submit" class="btn btn-success" name="btn_save">Save</button>
+                                                <button class="btn btn-secondary" href="user_list.php">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -95,7 +221,8 @@ if(!isset($_SESSION['logged_in'])){
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
-    <?php include "templates/jquery.php" ?>
+    <?php include "includes/footer.php" ?>
+    <?php include "includes/jquery.php" ?>
 </body>
 
 </html>

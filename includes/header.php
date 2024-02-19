@@ -155,8 +155,13 @@
                                 <div class="dw-user-box">
                                     <div class="u-img"><img src="assets/images/users/1.jpg" alt="user"></div>
                                     <div class="u-text">
-                                        <h4>Steave Jobs</h4>
-                                        <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+                                        <?php 
+                                            $user_firstname = $_SESSION['user_firstname'];
+                                            $user_lastname = $_SESSION['user_lastname'];
+                                            $user_email = $_SESSION['user_email'];
+                                        ?>
+                                        <h4><?php echo "$user_firstname $user_lastname" ?></h4>
+                                        <p class="text-muted"><?php echo "$user_email" ?></p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
                                     </div>
                                 </div>
                             </li>

@@ -34,14 +34,14 @@ if (!isset($_SESSION['logged_in'])) {
 <![endif]-->
 </head>
 
-<body class="fix-header card-no-border">
-    <?php include "templates/preloader.php" ?>
+<body class="card-no-border">
+    <?php include "includes/preloader.php" ?>
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <div id="main-wrapper">
-        <?php include "templates/header.php" ?>
-        <?php include "templates/navbar.php" ?>
+        <?php include "includes/header.php" ?>
+        <?php include "includes/navbar.php" ?>
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
@@ -72,6 +72,24 @@ if (!isset($_SESSION['logged_in'])) {
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-12">
+                        <?php
+                        if (isset($_SESSION['success_msg'])) {
+                            $success_msg = $_SESSION['success_msg'];
+                            unset($_SESSION['success_msg']);
+                        ?>
+                            <div class="alert alert-success text-left">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <h3 class="text-success">
+                                    <i class="fa fa-times-circle"></i>
+                                    Well done!
+                                </h3>
+                                <?php echo "$success_msg" ?>
+                            </div>
+                        <?php
+                        };
+                        ?>
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Users</h4>
@@ -97,7 +115,7 @@ if (!isset($_SESSION['logged_in'])) {
                                                 $email = $row['lemail'];
 
                                             ?>
-                                                <tr>
+                                                <tr style="cursor: pointer;" onclick="viewUser(this)">
                                                     <td><?php echo "$id" ?></td>
                                                     <td><?php echo "$firstname" ?></td>
                                                     <td><?php echo "$lastname" ?></td>
@@ -129,7 +147,9 @@ if (!isset($_SESSION['logged_in'])) {
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
-    <?php include "templates/jquery.php" ?>
+    <?php include "includes/footer.php" ?>
+    <?php include "includes/jquery.php" ?>
+    <script src="js/user.js"></script>
 </body>
 
 </html>

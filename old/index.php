@@ -42,6 +42,11 @@ session_start();
         document.getElementById("invalid-alert-box").style.display = "block";
         document.getElementById("invalid-text").innerHTML = "Wrong password!";
         </script>';
+    } else if (isset($_SESSION['account_deleted'])) {
+        echo '<script>
+        document.getElementById("invalid-alert-box").style.display = "block";
+        document.getElementById("invalid-text").innerHTML = "";
+        </script>';
     }
     session_unset();
     ?>

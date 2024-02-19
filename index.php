@@ -1,5 +1,5 @@
 <?php
-include "classes/FormValidationClass.php";
+include "classes/UserClass.php";
 session_start();
 
 if(isset($_SESSION['logged_in'])){
@@ -10,7 +10,7 @@ if (isset($_POST['btn_login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $form = new FormValidationClass();
+    $form = new UserClass();
     $error_msg = $form->Authenticate($email, $password);
 }
 ?>
@@ -44,7 +44,7 @@ if (isset($_POST['btn_login'])) {
 </head>
 
 <body>
-    <?php include "templates/preloader.php" ?>
+    <?php include "includes/preloader.php" ?>
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -123,7 +123,7 @@ if (isset($_POST['btn_login'])) {
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
-    <?php include "templates/jquery.php" ?>
+    <?php include "includes/jquery.php" ?>
 </body>
 
 </html>

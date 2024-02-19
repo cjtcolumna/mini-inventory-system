@@ -34,14 +34,14 @@ if(!isset($_SESSION['logged_in'])){
 <![endif]-->
 </head>
 
-<body class="fix-header card-no-border">
-    <?php include "templates/preloader.php" ?>
+<body class="card-no-border">
+    <?php include "includes/preloader.php" ?>
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <div id="main-wrapper">
-        <?php include "templates/header.php" ?>
-        <?php include "templates/navbar.php" ?>
+        <?php include "includes/header.php" ?>
+        <?php include "includes/navbar.php" ?>
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
@@ -95,7 +95,8 @@ if(!isset($_SESSION['logged_in'])){
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
-    <?php include "templates/jquery.php" ?>
+    <?php include "includes/footer.php" ?>
+    <?php include "includes/jquery.php" ?>
 </body>
 
 </html>
