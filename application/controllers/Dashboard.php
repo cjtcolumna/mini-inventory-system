@@ -42,7 +42,7 @@ class Dashboard extends CI_Controller
         $this->load->library('form_validation');
 
         $data['title'] = "Login";
-
+        
         
         $btn_login_clicked = $this->input->post('btn_login');
         if (isset($btn_login_clicked)){
@@ -79,5 +79,11 @@ class Dashboard extends CI_Controller
         $this->session->sess_destroy();
         redirect('dashboard/login');
         exit();
+    }
+
+    public function sample_method($action,$pid){
+
+            echo "action:{$action} ID:{$pid}";
+
     }
 }

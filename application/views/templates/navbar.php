@@ -23,6 +23,7 @@
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="<?php echo base_url('index.php/users/list') ?>">Users</a></li>
                         <li><a href="javascript:void(0)">Customers</a></li>
+                        <!--
                         <li>
                             <a class="has-arrow" href="#" aria-expanded="false">Menu 1.3</a>
                             <ul aria-expanded="false" class="collapse">
@@ -33,6 +34,7 @@
                             </ul>
                         </li>
                         <li><a href="#">item 1.4</a></li>
+                        -->
                     </ul>
                 </li>
             </ul>

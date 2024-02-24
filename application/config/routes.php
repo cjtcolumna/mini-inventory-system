@@ -55,16 +55,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$route['404_override'] = '';
 //$route['translate_uri_dashes'] = FALSE;
 
-$route['users'] = 'users/index';
-$route['users(:any)'] = 'users/index';
+$route['users/create'] = 'users/create';
+$route['users/list'] = 'users/index';
+$route['users/(:any)'] = 'users/index';
 
-$route['home'] = 'dashboard/home';
-$route['login'] = 'dashboard/login';
-$route['logout'] = 'dashboard/logout';
 $route['dashboard/home'] = 'dashboard/home';
 $route['dashboard/login'] = 'dashboard/login';
 $route['dashboard/logout'] = 'dashboard/logout';
 $route['dashboard/(:any)'] = 'dashboard/login';
-$route['dashboard'] = 'dashboard/home';
+
+$route['sample_method/(:any)/(:any)'] = 'dashboard/sample_method/$1/$2';
+
 $route['(:any)'] = 'dashboard/login/';
 $route['default_controller'] = 'dashboard/login';
