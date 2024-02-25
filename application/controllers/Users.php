@@ -6,52 +6,31 @@ class Users extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->library(array('form_validation', 'session', 'CurrentUserClass'));
+        $this->load->helper(array('form', 'url_helper'));
         $this->load->model('user_model');
-        $this->load->library('session');
-        $this->load->helper('url_helper');
     }
 
     public function index()
     {
-        if ($this->session->userdata('logged_in') !== TRUE) {
-            redirect('dashboard/login');
-        }
+        $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'));
 
-        $data = array(
-            'title' => "USERS",
-            'id' => $this->session->userdata('id'),
-            'firstname' => $this->session->userdata('firstname'),
-            'lastname' => $this->session->userdata('lastname'),
-            'email' => $this->session->userdata('email')
-        );
-
-        $rows = $this->user_model->get_user_list();
-        if (!empty($rows)) {
-            $data['users'] = $rows;
+        $data['title'] = 'USERS'
+        $user_list = $this->user_model->get_user_list();
+        if (!empty($user_list)) {
+            $data['users'] = $user_list;
         };
 
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/navbar');
         $this->load->view('users/index', $data);
         $this->load->view('templates/footer');
     }
 
     public function create()
     {
-        if ($this->session->userdata('logged_in') !== TRUE) {
-            redirect('dashboard/login');
-        }
+        $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'));
 
-        $this->load->helper(array('form', 'url'));
-        $this->load->library('form_validation');
-
-        $data = array(
-            'title' => "USERS | CREATE",
-            'id' => $this->session->userdata('id'),
-            'firstname' => $this->session->userdata('firstname'),
-            'lastname' => $this->session->userdata('lastname'),
-            'email' => $this->session->userdata('email')
-        );
+        $data['title'] = "USERS | CREATE";
 
         $btn_save_clicked = $this->input->post('btn_save');
         if (isset($btn_save_clicked)) {
@@ -63,12 +42,7 @@ class Users extends CI_Controller
 
             if ($this->form_validation->run() === FALSE) {
                 //set error message
-                $data['error_msg'] = validation_errors(); //'Please fill in all the input fields.';
-                //load views again
-                $this->load->view('templates/header', $data);
-                $this->load->view('templates/navbar');
-                $this->load->view('users/create', $data);
-                $this->load->view('templates/footer');
+                $data['error_msg'] = validation_errors();
             } else {
                 //add data to db
                 $this->user_model->create_user();
@@ -77,24 +51,16 @@ class Users extends CI_Controller
                 //redirect to users/list
                 redirect('users/list');
             }
-        } else {
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/navbar');
-            $this->load->view('users/create', $data);
-            $this->load->view('templates/footer');
-        }
+        } 
+        $this->load->view('templates/header', $data);
+        $this->load->view('users/create', $data);
+        $this->load->view('templates/footer');
     }
 
     public function view($user_id)
     {
-        if ($this->session->userdata('logged_in') !== TRUE) {
-            redirect('dashboard/login');
-        }
+        $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'));
 
-        $this->load->helper(array('form', 'url'));
-        $this->load->library('form_validation');
-
-        
         $data = array();
         //profile settings
         $btn_1 = $this->input->post('btn_profile_settings'); 
@@ -146,7 +112,6 @@ class Users extends CI_Controller
             }
         }
 
-
         $data += array(
             'title' => "USERS | CREATE",
             'id' => $this->session->userdata('id'),
@@ -163,7 +128,6 @@ class Users extends CI_Controller
             $data['user_lastname'] = $row['llastname'];
             $data['user_email'] = $row['lemail'];
             $this->load->view('templates/header', $data);
-            $this->load->view('templates/navbar');
             $this->load->view('users/view', $data);
             $this->load->view('templates/footer');
         } else {

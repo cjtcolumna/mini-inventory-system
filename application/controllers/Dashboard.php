@@ -6,27 +6,17 @@ class Dashboard extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('session');
+        $this->load->library(array('session', 'form_validation', 'CurrentUserClass'));
+        $this->load->helper(array('form', 'url_helper')); 
         $this->load->model('account_model');
-        $this->load->helper('url_helper'); 
     }
 
     public function home()
     {
-        if ($this->session->userdata('logged_in') !== TRUE) {
-            redirect('dashboard/login');
-        }
+        $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'));
         
-        $data = array(
-            'title' => "DASHBOARD",
-            'id' => $this->session->userdata('id'),
-            'firstname' => $this->session->userdata('firstname'),
-            'lastname' => $this->session->userdata('lastname'),
-            'email' => $this->session->userdata('email')
-        );
-
+        $data['title'] = 'DASHBOARD';
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/navbar');
         $this->load->view('dashboard/home');
         $this->load->view('templates/footer');
     }
@@ -34,15 +24,9 @@ class Dashboard extends CI_Controller
 
     public function login()
     {
-        if ($this->session->userdata('logged_in') === TRUE) {
-            redirect('dashboard/home');
-        }
-
-        $this->load->helper(array('form', 'url'));
-        $this->load->library('form_validation');
+        $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'), TRUE);
 
         $data['title'] = "Login";
-        
         
         $btn_login_clicked = $this->input->post('btn_login');
         if (isset($btn_login_clicked)){
@@ -51,7 +35,6 @@ class Dashboard extends CI_Controller
 
             if ($this->form_validation->run() === FALSE) {
                 $data['error_msg'] = 'Please enter your email and password.';
-                $this->load->view('dashboard/login', $data);
             }else {
                 $row = $this->account_model->get_user();
                 if(!empty($row)){
@@ -66,24 +49,16 @@ class Dashboard extends CI_Controller
                     redirect('dashboard/home');
                 }else {
                     $data['error_msg'] = 'Account not found.';
-                    $this->load->view('dashboard/login', $data);
                 }
             }
-        }else {
-            $this->load->view('dashboard/login', $data);
         }
         
+        $this->load->view('dashboard/login', $data);
     }
 
     public function logout(){
         $this->session->sess_destroy();
         redirect('dashboard/login');
-        exit();
     }
 
-    public function sample_method($action,$pid){
-
-            echo "action:{$action} ID:{$pid}";
-
-    }
 }
