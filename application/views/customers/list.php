@@ -11,10 +11,10 @@
         <!-- ============================================================== -->
         <div class="row page-titles">
             <div class="col-md-6 col-8 align-self-center">
-                <h3 class="text-themecolor mb-0 mt-0">Users</h3>
+                <h3 class="text-themecolor mb-0 mt-0">Customers</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?php echo base_url('index.php/dashboard/home') ?>">Home</a></li>
-                    <li class="breadcrumb-item active">Users</li>
+                    <li class="breadcrumb-item active">Customers</li>
                 </ol>
             </div>
             <div class="col-md-6 col-4 align-self-center">
@@ -47,32 +47,35 @@
                 ?>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Users</h4>
-                        <a class="btn btn-sm btn-success text-white" href="<?php echo base_url('index.php/users/create') ?>" style="width: 90px">Add</a>
+                        <h4 class="card-title">Customers</h4>
+                        <a class="btn btn-sm btn-success text-white" href="<?php echo base_url('index.php/customers/create') ?>" style="width: 90px">Add</a>
                         <div class="table-responsive mt-4">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>Code</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
-                                        <th>Email</th>
+                                        <th>Contact</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    foreach ($users as $user) :
-                                        $user_id = $user['lid'];
-                                        $user_firstname = $user['lfirstname'];
-                                        $user_lastname = $user['llastname'];
-                                        $user_email = $user['lemail'];
+                                    foreach ($customers as $customer) :
+                                        $customer_id = $customer['lid'];
+                                        $customer_code = $customer['lcode'];
+                                        $customer_firstname = $customer['lfirstname'];
+                                        $customer_lastname = $customer['llastname'];
+                                        $customer_email = $customer['lcontact'];
 
                                     ?>
                                         <tr style="cursor: pointer;" onclick="viewRow(this)">
-                                            <td><?php echo "$user_id" ?></td>
-                                            <td><?php echo "$user_firstname" ?></td>
-                                            <td><?php echo "$user_lastname" ?></td>
-                                            <td><?php echo "$user_email" ?></td>
+                                            <td><?php echo "$customer_id" ?></td>
+                                            <td><?php echo "$customer_code" ?></td>
+                                            <td><?php echo "$customer_firstname" ?></td>
+                                            <td><?php echo "$customer_lastname" ?></td>
+                                            <td><?php echo "$customer_email" ?></td>
                                         </tr>
                                     <?php
                                     endforeach;

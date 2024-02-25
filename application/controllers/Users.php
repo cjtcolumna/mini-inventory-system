@@ -15,7 +15,7 @@ class Users extends CI_Controller
     {
         $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'));
 
-        $data['title'] = 'USERS'
+        $data['title'] = 'USERS';
         $user_list = $this->user_model->get_user_list();
         if (!empty($user_list)) {
             $data['users'] = $user_list;
@@ -61,7 +61,7 @@ class Users extends CI_Controller
     {
         $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'));
 
-        $data = array();
+        $data['title'] = "USERS | VIEW";
         //profile settings
         $btn_1 = $this->input->post('btn_profile_settings'); 
         //change password
@@ -111,14 +111,6 @@ class Users extends CI_Controller
                 redirect('users/list');
             }
         }
-
-        $data += array(
-            'title' => "USERS | CREATE",
-            'id' => $this->session->userdata('id'),
-            'firstname' => $this->session->userdata('firstname'),
-            'lastname' => $this->session->userdata('lastname'),
-            'email' => $this->session->userdata('email')
-        );
 
         //get user where id=user_id
         $row = $this->user_model->get_user($user_id);
