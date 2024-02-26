@@ -55,6 +55,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$route['404_override'] = '';
 //$route['translate_uri_dashes'] = FALSE;
 
+$route['materials/create'] = 'materials/create';
+$route['materials/list'] = 'materials/index';
+$route['materials/(:any)'] = 'materials/index';
+
 $route['customers/create'] = 'customers/create';
 $route['customers/list'] = 'customers/index';
 $route['customers/(:any)'] = 'customers/index';
