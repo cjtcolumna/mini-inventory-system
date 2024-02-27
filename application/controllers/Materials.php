@@ -16,7 +16,7 @@ class Materials extends CI_Controller
         $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'));
 
 
-        $data['title'] = 'CUSTOMERS';
+        $data['title'] = 'MATERIALS';
         /*
         $material_list = $this->material_model->get_material_list();
         if (!empty($material_list)) {
@@ -27,5 +27,18 @@ class Materials extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('materials/list', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function create()
+    {
+        
+        $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'));
+
+        $data['title'] = 'MATERIALS | NEW';
+        $data['dropify'] = TRUE;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('materials/create', $data);
+        $this->load->view('templates/footer', $data);
     }
 }

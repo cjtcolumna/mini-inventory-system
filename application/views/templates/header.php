@@ -19,6 +19,9 @@
         </title>
         <!-- Bootstrap Core CSS -->
         <link href="<?php echo base_url('assets/plugins/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
+        <?php if (isset($dropify)) { ?>
+                <link rel="stylesheet" href="<?php echo base_url('assets/plugins/dropify/dist/css/dropify.min.css'); ?>">
+        <?php }; ?>
         <!-- Custom CSS -->
         <link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet">
         <!-- You can change the theme colors from here -->

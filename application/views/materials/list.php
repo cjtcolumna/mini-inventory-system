@@ -35,7 +35,7 @@
                         </h4>
                         <hr>
                         <div class="d-grid">
-                            <a class="btn btn-success w-100" href="#"><i class="fas fa-plus"></i> Create New</a>
+                            <a class="btn btn-success w-100" href="<?php echo base_url('index.php/materials/create') ?>"><i class="fas fa-plus"></i> Create New</a>
                         </div>
                     </div>
                 </div>
