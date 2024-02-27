@@ -26,8 +26,25 @@
         <!-- ============================================================== -->
         <!-- Start Page Content -->
         <!-- ============================================================== -->
+        <?php
+        $success_msg = $this->session->flashdata('success_msg');
+        if (isset($success_msg)) {
+        ?>
+            <div class="alert alert-success text-left">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h3 class="text-success">
+                    <i class="fa fa-times-circle"></i>
+                    Well done!
+                </h3>
+                <?php echo "$success_msg" ?>
+            </div>
+        <?php
+        };
+        ?>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-lg-3">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">
@@ -40,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-lg-9">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -48,129 +65,62 @@
                                 Record List
                             </h4>
                             <h4 class="card-title m-0">
-                                Total Records: Num
+                                Total Records: <?php echo $total_records ?>
                             </h4>
                         </div>
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th class="font-weight-bold" style="width: 15%">Image</th>
+                                    <th class="font-weight-bold" style="width: 18%">Image</th>
                                     <th class="font-weight-bold">Item</th>
                                     <th class="font-weight-bold">Details</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="align-middle">
-                                        <img src="<?php echo base_url('assets/images/gallery/studio1.jpg') ?>" class="img-fluid img-thumbnail" alt="Material Image">
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-xl-4 font-weight-normal">Code:</div>
-                                            <div class="col-xl-8">VALUE</div>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Name:</span>
-                                            <span class="col-xl-8">VALUE</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Category:</span>
-                                            <span class="col-xl-8">VALUE</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-xl-4 font-weight-normal">Unit:</div>
-                                            <div class="col-xl-8">pcs</div>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Unit Set:</span>
-                                            <span class="col-xl-8">dozen</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Unit Qty:</span>
-                                            <span class="col-xl-8">12</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Qty:</span>
-                                            <span class="col-xl-8">Inventory</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle">
-                                        <img src="<?php echo base_url('assets/images/gallery/studio2.jpg') ?>" class="img-fluid img-thumbnail" alt="Material Image">
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-xl-4 font-weight-normal">Code:</div>
-                                            <div class="col-xl-8">VALUE</div>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Name:</span>
-                                            <span class="col-xl-8">VALUE</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Category:</span>
-                                            <span class="col-xl-8">VALUE</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-xl-4 font-weight-normal">Unit:</div>
-                                            <div class="col-xl-8">pcs</div>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Unit Set:</span>
-                                            <span class="col-xl-8">dozen</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Unit Qty:</span>
-                                            <span class="col-xl-8">12</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Qty:</span>
-                                            <span class="col-xl-8">Inventory</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle">
-                                        <img src="<?php echo base_url('assets/images/gallery/studio3.jpg') ?>" class="img-fluid img-thumbnail" alt="Material Image">
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-xl-4 font-weight-normal">Code:</div>
-                                            <div class="col-xl-8">VALUE</div>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Name:</span>
-                                            <span class="col-xl-8">VALUE</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Category:</span>
-                                            <span class="col-xl-8">VALUE</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-xl-4 font-weight-normal">Unit:</div>
-                                            <div class="col-xl-8">pcs</div>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Unit Set:</span>
-                                            <span class="col-xl-8">dozen</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Unit Qty:</span>
-                                            <span class="col-xl-8">12</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-xl-4 font-weight-normal">Qty:</span>
-                                            <span class="col-xl-8">Inventory</span>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <?php foreach ($materials as $material) : ?>
+                                    <tr>
+                                        <td class="align-middle">
+                                            <img src="<?php echo base_url("uploads/materials/images/{$material['limage']}") ?>" class="img-fluid img-thumbnail" alt="Material Image">
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-xl-4 font-weight-normal">Code:</div>
+                                                <div class="col-xl-8"><?php echo $material['lcode'] ?></div>
+                                            </div>
+                                            <div class="row">
+                                                <span class="col-xl-4 font-weight-normal">Name:</span>
+                                                <span class="col-xl-8"><?php echo $material['lname'] ?></span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="col-xl-4 font-weight-normal">Category:</span>
+                                                <span class="col-xl-8"><?php echo $material['lcategory'] ?></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-xl-4 font-weight-normal">Unit:</div>
+                                                <div class="col-xl-8"><?php echo $material['lunit'] ?></div>
+                                            </div>
+                                            <div class="row">
+                                                <span class="col-xl-4 font-weight-normal">Unit Set:</span>
+                                                <span class="col-xl-8"><?php echo $material['lunit_set'] ?></span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="col-xl-4 font-weight-normal">Unit Qty:</span>
+                                                <span class="col-xl-8"><?php echo $material['lunit_qty'] ?></span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="col-xl-4 font-weight-normal">Qty:</span>
+                                                <?php
+                                                    $qty = $material['lunit_set_default'] ? 
+                                                    (String) (round($material['lqty']/$material['lunit_qty'], 2)) . " " . $material['lunit_set'] : 
+                                                    (String) $material['lqty'] . $material['lunit'];
+                                                ?>
+                                                <span class="col-xl-8"><?php echo $qty ?></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                         <hr>
