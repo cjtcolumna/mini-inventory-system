@@ -71,14 +71,14 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th class="font-weight-bold" style="width: 18%">Image</th>
+                                    <th class="font-weight-bold" style="width: 15%">Image</th>
                                     <th class="font-weight-bold">Item</th>
                                     <th class="font-weight-bold">Details</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($materials as $material) : ?>
-                                    <tr>
+                                    <tr style="cursor: pointer;" onclick="viewMaterialRecord(this)">
                                         <td class="align-middle">
                                             <img src="<?php echo base_url("uploads/materials/images/{$material['limage']}") ?>" class="img-fluid img-thumbnail" alt="Material Image">
                                         </td>
@@ -110,7 +110,7 @@
                                                 <span class="col-xl-8"><?php echo $material['lunit_qty'] ?></span>
                                             </div>
                                             <div class="row">
-                                                <span class="col-xl-4 font-weight-normal">Qty:</span>
+                                                <span class="col-xl-4 font-weight-normal">Qty (Inv):</span>
                                                 <?php
                                                     $qty = $material['lunit_set_default'] ? 
                                                     (String) (round($material['lqty']/$material['lunit_qty'], 2)) . " " . $material['lunit_set'] : 
@@ -144,3 +144,4 @@
 <!-- ============================================================== -->
 <!-- End Wrapper -->
 <!-- ============================================================== -->
+<script src="<?php echo base_url('assets/js/tables.js') ?>"></script>
