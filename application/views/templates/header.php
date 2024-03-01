@@ -19,8 +19,19 @@
         </title>
         <!-- Bootstrap Core CSS -->
         <link href="<?php echo base_url('assets/plugins/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
+
         <?php if (isset($dropify)) { ?>
                 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/dropify/dist/css/dropify.min.css'); ?>">
+        <?php }; ?>
+
+        <?php if (isset($switchery)) { ?>
+                <link href="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css'); ?>" rel="stylesheet" type="text/css" />
+                <link href="<?php echo base_url('assets/plugins/select2/dist/css/select2.min.css'); ?>" rel="stylesheet" type="text/css" />
+                <link href="<?php echo base_url('assets/plugins/switchery/dist/switchery.min.css'); ?>" rel="stylesheet" />
+                <link href="<?php echo base_url('assets/plugins/bootstrap-select/bootstrap-select.min.css'); ?>" rel="stylesheet" />
+                <link href="<?php echo base_url('assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css'); ?>" rel="stylesheet" />
+                <link href="<?php echo base_url('assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css'); ?>" rel="stylesheet" />
+                <link href="<?php echo base_url('assets/plugins/multiselect/css/multi-select.css'); ?>" rel="stylesheet" type="text/css" />
         <?php }; ?>
         <!-- Custom CSS -->
         <link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet">
@@ -347,7 +358,7 @@
                                                         <ul aria-expanded="false" class="collapse">
                                                                 <li><a href="<?php echo base_url('index.php/materials/list') ?>">Materials</a>
                                                                 </li>
-                                                                <li><a href="<?php echo base_url('index.php/finish_product/list') ?>">Finish Product</a></li>
+                                                                <li><a href="<?php echo base_url('index.php/products/list') ?>">Finish Product</a></li>
                                                         </ul>
                                                 </li>
                                                 <li>

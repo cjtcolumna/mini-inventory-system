@@ -55,23 +55,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$route['404_override'] = '';
 //$route['translate_uri_dashes'] = FALSE;
 
-$route['materials/get_id/(:any)'] = 'materials/get_id/$1';
-$route['materials/create'] = 'materials/create';
-$route['materials/list'] = 'materials/index';
-$route['materials/(:any)'] = 'materials/index';
-
-$route['customers/create'] = 'customers/create';
-$route['customers/list'] = 'customers/index';
-$route['customers/(:any)'] = 'customers/index';
+$route['dashboard/home'] = 'dashboard/home';
+$route['dashboard/login'] = 'dashboard/login';
+$route['dashboard/logout'] = 'dashboard/logout';
+$route['dashboard/(:any)'] = 'dashboard/login';
 
 $route['users/create'] = 'users/create';
 $route['users/list'] = 'users/index';
 $route['users/(:any)'] = 'users/index';
 
-$route['dashboard/home'] = 'dashboard/home';
-$route['dashboard/login'] = 'dashboard/login';
-$route['dashboard/logout'] = 'dashboard/logout';
-$route['dashboard/(:any)'] = 'dashboard/login';
+$route['customers/create'] = 'customers/create';
+$route['customers/list'] = 'customers/index';
+$route['customers/(:any)'] = 'customers/index';
+
+$route['materials/get_id/(:any)'] = 'materials/get_id/$1';
+$route['materials/create'] = 'materials/create';
+$route['materials/list'] = 'materials/index';
+$route['materials/(:any)'] = 'materials/index';
+
+$route['products/get_id/(:any)'] = 'products/get_id/$1';
+$route['products/create'] = 'products/create';
+$route['products/list'] = 'products/index';
+$route['products/(:any)'] = 'products/index';
 
 $route['sample_method/(:any)/(:any)'] = 'dashboard/sample_method/$1/$2';
 

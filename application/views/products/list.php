@@ -11,10 +11,10 @@
         <!-- ============================================================== -->
         <div class="row page-titles">
             <div class="col-md-6 col-8 align-self-center">
-                <h3 class="text-themecolor mb-0 mt-0">Materials</h3>
+                <h3 class="text-themecolor mb-0 mt-0">Products</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?php echo base_url('index.php/dashboard/home') ?>">Home</a></li>
-                    <li class="breadcrumb-item active">Materials</li>
+                    <li class="breadcrumb-item active">Products</li>
                 </ol>
             </div>
             <div class="col-md-6 col-4 align-self-center">
@@ -52,7 +52,7 @@
                         </h4>
                         <hr>
                         <div class="d-grid">
-                            <a class="btn btn-success w-100" href="<?php echo base_url('index.php/materials/create') ?>"><i class="fas fa-plus"></i> Create New</a>
+                            <a class="btn btn-success w-100" href="<?php echo base_url('index.php/products/create') ?>"><i class="fas fa-plus"></i> Create New</a>
                         </div>
                     </div>
                 </div>
@@ -77,44 +77,44 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($materials as $material) : ?>
+                                <?php foreach ($products as $product) : ?>
                                     <tr style="cursor: pointer;" onclick="viewRecord(this)">
                                         <td class="align-middle">
-                                            <img src="<?php echo base_url("uploads/materials/images/{$material['limage']}") ?>" class="img-fluid img-thumbnail" alt="Material Image">
+                                            <img src="<?php echo base_url("uploads/products/images/{$product['limage']}") ?>" class="img-fluid img-thumbnail" alt="Product Image">
                                         </td>
                                         <td>
                                             <div class="row">
                                                 <div class="col-xl-4 font-weight-normal">Code:</div>
-                                                <div class="col-xl-8"><?php echo $material['lcode'] ?></div>
+                                                <div class="col-xl-8"><?php echo $product['lcode'] ?></div>
                                             </div>
                                             <div class="row">
                                                 <span class="col-xl-4 font-weight-normal">Name:</span>
-                                                <span class="col-xl-8"><?php echo $material['lname'] ?></span>
+                                                <span class="col-xl-8"><?php echo $product['lname'] ?></span>
                                             </div>
                                             <div class="row">
                                                 <span class="col-xl-4 font-weight-normal">Category:</span>
-                                                <span class="col-xl-8"><?php echo $material['lcategory'] ?></span>
+                                                <span class="col-xl-8"><?php echo $product['lcategory'] ?></span>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="row">
                                                 <div class="col-xl-4 font-weight-normal">Unit:</div>
-                                                <div class="col-xl-8"><?php echo $material['lunit'] ?></div>
+                                                <div class="col-xl-8"><?php echo $product['lunit'] ?></div>
                                             </div>
                                             <div class="row">
                                                 <span class="col-xl-4 font-weight-normal">Unit Set:</span>
-                                                <span class="col-xl-8"><?php echo $material['lunit_set'] ?></span>
+                                                <span class="col-xl-8"><?php echo $product['lunit_set'] ?></span>
                                             </div>
                                             <div class="row">
                                                 <span class="col-xl-4 font-weight-normal">Unit Qty:</span>
-                                                <span class="col-xl-8"><?php echo $material['lunit_qty'] ?></span>
+                                                <span class="col-xl-8"><?php echo $product['lunit_qty'] ?></span>
                                             </div>
                                             <div class="row">
                                                 <span class="col-xl-4 font-weight-normal">Qty (Inv):</span>
                                                 <?php
-                                                    $qty = $material['lunit_set_default'] ? 
-                                                    (String) (round($material['lqty']/$material['lunit_qty'], 2)) . " " . $material['lunit_set'] : 
-                                                    (String) $material['lqty'] . " " . $material['lunit'];
+                                                    $qty = $product['lunit_set_default'] ? 
+                                                    (String) (round($product['lqty']/$product['lunit_qty'], 2)) . " " . $product['lunit_set'] : 
+                                                    (String) $product['lqty'] . " " . $product['lunit'];
                                                 ?>
                                                 <span class="col-xl-8"><?php echo $qty ?></span>
                                             </div>
