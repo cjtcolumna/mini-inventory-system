@@ -68,15 +68,13 @@ $route['customers/create'] = 'customers/create';
 $route['customers/list'] = 'customers/index';
 $route['customers/(:any)'] = 'customers/index';
 
+$route['units/list'] = 'units/index';
+$route['units/(:any)'] = 'units/index';
+
 $route['materials/get_id/(:any)'] = 'materials/get_id/$1';
 $route['materials/create'] = 'materials/create';
 $route['materials/list'] = 'materials/index';
 $route['materials/(:any)'] = 'materials/index';
-
-$route['products/get_id/(:any)'] = 'products/get_id/$1';
-$route['products/create'] = 'products/create';
-$route['products/list'] = 'products/index';
-$route['products/(:any)'] = 'products/index';
 
 $route['sample_method/(:any)/(:any)'] = 'dashboard/sample_method/$1/$2';
 

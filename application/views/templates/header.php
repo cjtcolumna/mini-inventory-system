@@ -356,17 +356,15 @@
                                                 <li>
                                                         <a class="has-arrow " href="#" aria-expanded="false"><i class="fas fa-cubes"></i><span class="hide-menu">Warehouse</span></a>
                                                         <ul aria-expanded="false" class="collapse">
-                                                                <li><a href="<?php echo base_url('index.php/materials/list') ?>">Materials</a>
-                                                                </li>
-                                                                <li><a href="<?php echo base_url('index.php/products/list') ?>">Finish Product</a></li>
+                                                                <li><a href="<?php echo base_url('index.php/materials/list') ?>">Materials</a></li>
                                                         </ul>
                                                 </li>
                                                 <li>
                                                         <a class="has-arrow " href="#" aria-expanded="false"><i class="fas fa-database"></i><span class="hide-menu">Maintenance</span></a>
                                                         <ul aria-expanded="false" class="collapse">
-                                                                <li><a href="<?php echo base_url('index.php/users/list') ?>">Users</a>
-                                                                </li>
+                                                                <li><a href="<?php echo base_url('index.php/users/list') ?>">Users</a></li>
                                                                 <li><a href="<?php echo base_url('index.php/customers/list') ?>">Customers</a></li>
+                                                                <li><a href="<?php echo base_url('index.php/units/list') ?>">Units</a></li>
                                                                 <!--
                         <li>
                             <a class="has-arrow" href="#" aria-expanded="false">Menu 1.3</a>
