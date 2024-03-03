@@ -90,7 +90,34 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" name="btn_edit">Save</button>
+                            <button type="submit" class="btn btn-success" name="btn_update">Save</button>
+                            <button class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <!-- unit edit modal content -->
+        <div id="deleteUnitModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteUnitModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="deleteUnitModalLabel">Delete</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <form class="form-horizontal" action="<?php echo base_url('index.php/units/list') ?>" method="post" autocomplete="off">
+                        <div class="modal-body">
+                            <div class="alert alert-warning">
+                                <strong>Warning! </strong>
+                                Are you sure you want to delete this record? You will not be able to recover this record after deleting the record.
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="btn_delete" class="btn btn-danger" name="btn_delete">Delete</button>
                             <button class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
@@ -146,7 +173,6 @@
                         </h4>
                         <hr>
                         <div class="d-grid">
-
                             <button type="button" class="btn btn-success w-100" data-toggle="modal" data-target="#createUnitModal">
                                 <i class="fas fa-plus"></i> Create New
                             </button>
@@ -175,16 +201,22 @@
                                     <th class="font-weight-bold">Unit Name</th>
                                     <th class="font-weight-bold">Unit Display</th>
                                     <th class="font-weight-bold">Quantity</th>
+                                    <th class="font-weight-bold">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($units as $unit) : ?>
-                                    <tr style="cursor: pointer;" data-toggle="modal" data-target="#editUnitModal" onclick="showEditUnitModal(this)">
-                                        <td></td>
-                                        <td class="d-none"><?php echo $unit['lid'] ?></td>
-                                        <td><?php echo $unit['lname'] ?></td>
-                                        <td><?php echo $unit['ldisplay'] ?></td>
-                                        <td><?php echo $unit['lqty'] ?></td>
+                                    <tr>
+                                        <td>
+                                            <?php if ($unit['lstatus'] == "Not Used") { ?>
+                                                <i class="fa fa-trash" style="cursor: pointer;" data-toggle="modal" data-target="#deleteUnitModal" onclick="showDeleteUnitModal(this)"></i>
+                                            <?php }; ?>
+                                        </td>
+                                        <td style="cursor: pointer;" data-toggle="modal" data-target="#editUnitModal" onclick="showEditUnitModal(this)" class="d-none"><?php echo $unit['lid'] ?></td>
+                                        <td style="cursor: pointer;" data-toggle="modal" data-target="#editUnitModal" onclick="showEditUnitModal(this)"><?php echo $unit['lname'] ?></td>
+                                        <td style="cursor: pointer;" data-toggle="modal" data-target="#editUnitModal" onclick="showEditUnitModal(this)"><?php echo $unit['ldisplay'] ?></td>
+                                        <td style="cursor: pointer;" data-toggle="modal" data-target="#editUnitModal" onclick="showEditUnitModal(this)"><?php echo $unit['lqty'] ?></td>
+                                        <td style="cursor: pointer;" data-toggle="modal" data-target="#editUnitModal" onclick="showEditUnitModal(this)"><span style="width: 100px" class="label label-info text-center"><?php echo $unit['lstatus'] ?></span></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
