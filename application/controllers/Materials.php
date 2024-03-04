@@ -16,11 +16,12 @@ class Materials extends CI_Controller
         $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'));
 
         $data['title'] = 'MATERIALS';
+        $data['form_addons']= TRUE;
         $data['materials']  = $this->material_model->get_material_list();
         $data['total_records'] = count($data['materials']);
         $this->load->view('templates/header', $data);
         $this->load->view('materials/list', $data);
-        $this->load->view('templates/footer');
+        $this->load->view('templates/footer', $data);
     }
 
     public function create()
@@ -29,9 +30,10 @@ class Materials extends CI_Controller
 
         $data['title'] = 'MATERIALS | NEW';
         $data['dropify'] = TRUE;
+        $data['form_addons'] = TRUE;
 
-        $data['error_msg'] = '';
-
+        $data['materials']  = $this->material_model->get_material_list();
+        $data['units'] = $this->material_model->get_unit_list();
 
         $btn_save_clicked = $this->input->post('btn_save');
         if (isset($btn_save_clicked)) {

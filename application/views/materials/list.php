@@ -51,10 +51,30 @@
                             Action
                         </h4>
                         <hr>
-                        <div class="d-grid">
-                            <a class="btn btn-success w-100" href="<?php echo base_url('index.php/materials/create') ?>"><i class="fas fa-plus"></i> Create New</a>
+                        <div class="d-block">
+                            <a class="btn btn-success w-100 mb-3" href="<?php echo base_url('index.php/materials/create') ?>"><i class="fas fa-plus"></i> Create New</a>
+                            <a class="btn btn-info w-100 mb-3" href="<?php echo base_url('index.php/materials/list') ?>"><i class="fas fa-retweet"></i> Clear Sorting</a>
+                        </div>
+                        <h4 class="card-title mt-3">
+                            Filters
+                        </h4>
+                        <hr>
+                        <div class="input-group mb-4">
+                            <input type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1">
+                            <div class="input-group-append">
+                                <button class="btn btn-info" type="button"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div>
+                            <h5>Sort by:</h5>
+                            <select class="selectpicker mb-3 mr-2" data-style="btn-info btn-outline-info">
+                                <option data-tokens="all">All</option>
+                                <option data-tokens="materials">Materials</option>
+                                <option data-tokens="finish_product">Finish Products</option>
+                            </select>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="col-lg-9">
@@ -68,7 +88,8 @@
                                 Total Records: <?php echo $total_records ?>
                             </h4>
                         </div>
-                        <table class="table table-hover">
+                        <hr>
+                        <table class="table table-hover mt-5">
                             <thead>
                                 <tr>
                                     <th class="font-weight-bold" style="width: 15%">Image</th>
@@ -99,22 +120,26 @@
                                         <td>
                                             <div class="row">
                                                 <div class="col-xl-4 font-weight-normal">Unit:</div>
-                                                <div class="col-xl-8"><?php echo $material['lunit'] ?></div>
+                                                <div class="col-xl-8"><?php echo $material['lunit_id'] ?></div>
                                             </div>
                                             <div class="row">
                                                 <span class="col-xl-4 font-weight-normal">Unit Set:</span>
-                                                <span class="col-xl-8"><?php echo $material['lunit_set'] ?></span>
+                                                <span class="col-xl-8"><?php echo $material['lunit_set_id'] ?></span>
                                             </div>
                                             <div class="row">
-                                                <span class="col-xl-4 font-weight-normal">Unit Qty:</span>
-                                                <span class="col-xl-8"><?php echo $material['lunit_qty'] ?></span>
+                                                <span class="col-xl-4 font-weight-normal">Cost:</span>
+                                                <span class="col-xl-8"><?php echo $material['lcost'] ?></span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="col-xl-4 font-weight-normal">Price:</span>
+                                                <span class="col-xl-8"><?php echo $material['lprice'] ?></span>
                                             </div>
                                             <div class="row">
                                                 <span class="col-xl-4 font-weight-normal">Qty (Inv):</span>
                                                 <?php
-                                                    $qty = $material['lunit_set_default'] ? 
-                                                    (String) (round($material['lqty']/$material['lunit_qty'], 2)) . " " . $material['lunit_set'] : 
-                                                    (String) $material['lqty'] . " " . $material['lunit'];
+                                                $qty = $material['lunit_set_default'] ?
+                                                    (string) (round($material['lqty'] / $material['lunit_qty'], 2)) . " " . $material['lunit_set_id'] :
+                                                    (string) $material['lqty'] . " " . $material['lunit_id'];
                                                 ?>
                                                 <span class="col-xl-8"><?php echo $qty ?></span>
                                             </div>

@@ -6,13 +6,19 @@ class material_model extends CI_Model
         $this->load->database();
     }
 
-    //MATERIALS
+    //USED
     public function get_material_list()
     {
-        $query = $this->db->get_where('tblmaterial', array('lis_finish_product' => FALSE));
+        $query = $this->db->get('tblmaterial');
         return $query->result_array();
     }
 
+    public function get_unit_list()
+    {
+        $query = $this->db->get('tblunit');
+        return $query->result_array();
+    }
+    //USED
     public function get_material_record($material_id)
     {
         $query = $this->db->get_where('tblmaterial', array('lid' => $material_id));

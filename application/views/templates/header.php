@@ -24,7 +24,7 @@
                 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/dropify/dist/css/dropify.min.css'); ?>">
         <?php }; ?>
 
-        <?php if (isset($switchery)) { ?>
+        <?php if (isset($form_addons)) { ?>
                 <link href="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css'); ?>" rel="stylesheet" type="text/css" />
                 <link href="<?php echo base_url('assets/plugins/select2/dist/css/select2.min.css'); ?>" rel="stylesheet" type="text/css" />
                 <link href="<?php echo base_url('assets/plugins/switchery/dist/switchery.min.css'); ?>" rel="stylesheet" />
