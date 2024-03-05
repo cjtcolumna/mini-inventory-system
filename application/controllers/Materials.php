@@ -17,8 +17,9 @@ class Materials extends CI_Controller
 
         $data['title'] = 'MATERIALS';
         $data['form_addons']= TRUE;
-        $data['materials']  = $this->material_model->get_material_list();
+        $data['materials']  = $this->material_model->get_processed_list();
         $data['total_records'] = count($data['materials']);
+
         $this->load->view('templates/header', $data);
         $this->load->view('materials/list', $data);
         $this->load->view('templates/footer', $data);
@@ -33,16 +34,19 @@ class Materials extends CI_Controller
         $data['form_addons'] = TRUE;
 
         $data['materials']  = $this->material_model->get_material_list();
+        $data['json_materials'] =  json_encode($data['materials']);
         $data['units'] = $this->material_model->get_unit_list();
+        $data['json_units'] = json_encode($data['units']);
 
         $btn_save_clicked = $this->input->post('btn_save');
         if (isset($btn_save_clicked)) {
             //form validations
             $this->form_validation->set_rules('input_code', 'Code', 'required');
             $this->form_validation->set_rules('input_name', 'Name', 'required');
-            $this->form_validation->set_rules('input_unit', 'Unit', 'required');
-            $this->form_validation->set_rules('input_unit_set', 'Unit Set', 'required');
-            $this->form_validation->set_rules('input_unit_qty', 'Unit Qty', 'required');
+            $this->form_validation->set_rules('select_material_unit_id', 'Unit', 'required');
+            $this->form_validation->set_rules('select_material_unit_set_id', 'Unit Set', 'required');
+            $this->form_validation->set_rules('input_cost', 'Qty', 'required');
+            $this->form_validation->set_rules('input_price', 'Qty', 'required');
             $this->form_validation->set_rules('input_qty', 'Qty', 'required');
             if ($this->form_validation->run() === FALSE) {
                 //set error message
