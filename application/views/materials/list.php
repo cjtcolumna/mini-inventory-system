@@ -120,11 +120,11 @@
                                         <td>
                                             <div class="row">
                                                 <div class="col-xl-4 font-weight-normal">Unit:</div>
-                                                <div class="col-xl-8"><?php echo $material['lunit'] ?></div>
+                                                <div class="col-xl-8"><?php echo $material['lunit_display'] ?></div>
                                             </div>
                                             <div class="row">
                                                 <span class="col-xl-4 font-weight-normal">Unit Set:</span>
-                                                <span class="col-xl-8"><?php echo $material['lunit_set'] ?></span>
+                                                <span class="col-xl-8"><?php echo $material['lunit_set_display'] ?></span>
                                             </div>
                                             <div class="row">
                                                 <span class="col-xl-4 font-weight-normal">Cost:</span>
@@ -138,8 +138,8 @@
                                                 <span class="col-xl-4 font-weight-normal">Qty (Inv):</span>
                                                 <?php
                                                 $qty = $material['lunit_set_default'] ?
-                                                    (string) (round($material['lqty'] / $material['lunit_set_qty'], 2)) . " " . $material['lunit_set'] :
-                                                    (string) $material['lqty'] . " " . $material['lunit'];
+                                                    (string) (round($material['lqty'] / $material['lunit_set_qty'], 2)) . " " . $material['lunit_set_display'] :
+                                                    (string) $material['lqty'] . " " . $material['lunit_display'];
                                                 ?>
                                                 <span class="col-xl-8"><?php echo $qty ?></span>
                                             </div>

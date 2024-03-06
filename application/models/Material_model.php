@@ -22,13 +22,38 @@ class material_model extends CI_Model
     public function get_processed_list()
     {
         $query = $this->db->query(
-        "SELECT m.lid, m.lcode, m.limage, m.lname, m.lcategory, m.lunit_id, m.lunit_set_id, m.lunit_set_default, m.lcost, m.lprice, m.lqty, m.lis_finish_product, u.ldisplay as lunit, u.lqty as lunit_qty, us.ldisplay as lunit_set, us.lqty as lunit_set_qty
-        FROM tblmaterial AS m
-        JOIN tblunit AS u ON m.lunit_id = u.lid
-        JOIN tblunit AS us ON m.lunit_set_id = us.lid"
+            "SELECT m.lid, m.lcode, m.limage, m.lname, m.lcategory, m.lunit_id, m.lunit_set_id, m.lunit_set_default, m.lcost, m.lprice, m.lqty, m.lis_finish_product, u.lname as lunit_name, u.ldisplay as lunit_display, u.lqty as lunit_qty, us.lname as lunit_set_name, us.ldisplay as lunit_set_display, us.lqty as lunit_set_qty
+            FROM tblmaterial AS m
+            JOIN tblunit AS u ON m.lunit_id = u.lid
+            JOIN tblunit AS us ON m.lunit_set_id = us.lid"
         );
         $result = $query->result_array();
         return $result;
+    }
+
+    public function get_material_record($material_id)
+    {
+        $query = $this->db->query(
+            "SELECT m.lid, m.lcode, m.limage, m.lname, m.lcategory, m.lunit_id, m.lunit_set_id, m.lunit_set_default, m.lcost, m.lprice, m.lqty, m.lis_finish_product, u.lname as lunit_name, u.ldisplay as lunit_display, u.lqty as lunit_qty, us.lname as lunit_set_name, us.ldisplay as lunit_set_display, us.lqty as lunit_set_qty
+            FROM tblmaterial AS m
+            JOIN tblunit AS u ON m.lunit_id = u.lid
+            JOIN tblunit AS us ON m.lunit_set_id = us.lid
+            WHERE m.lid = " . $material_id
+        );
+        return $query->row_array();
+    }
+    
+
+    public function get_bom_record($finish_product_id)
+    {
+        $query = $this->db->query(
+            "SELECT m.lname, b.lqty_consumed, u.ldisplay, u.lqty as lmultiplier, m.lcost
+            FROM tblbom AS b 
+            JOIN tblmaterial AS m ON b.lmaterial_id = m.lid 
+            JOIN tblunit AS u ON m.lunit_id = u.lid
+            WHERE b.lfinish_product_id = " . $finish_product_id
+        );
+        return $query->result_array();
     }
 
     public function create_record($file_name)
@@ -63,8 +88,8 @@ class material_model extends CI_Model
                 array_push($bom_data, array(
                     'lfinish_product_id' => $id,
                     'lmaterial_id' => $this->input->post('select_bom_material' . $i),
-                    'lunit_id' => $this->input->post('input_bom_material_consumed' . $i),
-                    'lqty_consumed' => $this->input->post('select_bom_material_unit' . $i)
+                    'lunit_id' => $this->input->post('select_bom_material_unit' . $i), 
+                    'lqty_consumed' => $this->input->post('input_bom_material_consumed' . $i)
                 ));
             }
             $this->db->insert_batch('tblbom', $bom_data);
@@ -80,11 +105,7 @@ class material_model extends CI_Model
 
 
     //USED
-    public function get_material_record($material_id)
-    {
-        $query = $this->db->get_where('tblmaterial', array('lid' => $material_id));
-        return $query->row_array();
-    }
+
 
 
 
@@ -148,25 +169,5 @@ class material_model extends CI_Model
         } else {
             FALSE;
         }
-    }
-
-    //FINISH PRODUCTS
-    public function get_product_list()
-    {
-        $query = $this->db->get_where('tblmaterial', array('lis_finish_product' => TRUE));
-        return $query->result_array();
-    }
-
-    public function get_material_unit($material_id)
-    {
-        $query = $this->db->get_where('tblmaterial', array('lid' => $material_id));
-        $row = $query->row_array();
-        return $row['lunit'];
-    }
-    public function get_material_unit_set($material_id)
-    {
-        $query = $this->db->get_where('tblmaterial', array('lid' => $material_id));
-        $row = $query->row_array();
-        return $row['lunit_set'];
     }
 }

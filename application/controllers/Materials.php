@@ -85,6 +85,7 @@ class Materials extends CI_Controller
 
         $data['title'] = "MATERIALS | VIEW";
         $data['dropify'] = TRUE;
+        $data['form_addons'] = TRUE;
         //record settings
         $btn_1 = $this->input->post('btn_record_settings');
         //change password
@@ -147,19 +148,24 @@ class Materials extends CI_Controller
         }
 
         //get material record where id=material_id
-        $row = $this->material_model->get_material_record($material_id);
+        $material_record = $this->material_model->get_material_record($material_id);
+        if (!empty($material_record)) {
+            $data['material'] = $material_record;
+            $data['material']['material_id'] = $material_id;
 
-        if (!empty($row)) {
-            $data['material_id'] = $material_id;
-            $data['material_code'] = $row['lcode'];
-            $data['material_name'] = $row['lname'];
-            $data['material_category'] = $row['lcategory'];
-            $data['material_unit'] = $row['lunit'];
-            $data['material_unit_set'] = $row['lunit_set'];
-            $data['material_unit_set_default'] = $row['lunit_set_default'];
-            $data['material_unit_qty'] = $row['lunit_qty'];
-            $data['material_qty'] = $row['lqty'];
-            $data['material_image'] = $row['limage'];
+            if ($data['material']['lis_finish_product']) {
+                $data['bom'] = $this->material_model->get_bom_record($material_id);
+                $data['materials'] = $this->material_model->get_processed_list();
+                //process data
+                for ($i=0; $i < sizeof($data['materials']); $i++) { 
+                    if($data['materials'][$i]['lid'] == $material_id) {
+                        unset($data['materials'][$i]);
+                        break;
+                    }
+                }
+                $data['json_materials'] =  json_encode($data['materials']);
+            }
+
             $this->load->view('templates/header', $data);
             $this->load->view('materials/view', $data);
             $this->load->view('templates/footer', $data);
