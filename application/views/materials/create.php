@@ -81,7 +81,7 @@
                                         </h6>
                                     </label>
                                     <div class="col-md-6">
-                                        <input class="form-control" type="text" name="input_code">
+                                        <input class="form-control" type="text" name="input_code" value="<?php echo set_value('input_code') ?>">
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                                         </h6>
                                     </label>
                                     <div class="col-md-6">
-                                        <input class="form-control" type="text" name="input_name">
+                                        <input class="form-control" type="text" name="input_name" value="<?php echo set_value('input_name') ?>">
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +116,7 @@
                                         </h6>
                                     </label>
                                     <div class="col-md-6">
-                                        <input class="form-control" type="text" name="input_category">
+                                        <input class="form-control" type="text" name="input_category" value="<?php echo set_value('input_category') ?>">
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                                     </label>
                                     <div class="col-md-6">
                                         <select name="select_material_unit_id" class="select2" style="width: 100%">
-                                            <option value="1">Select</option>
+                                            <option>Select</option>
                                             <?php foreach ($units as $unit) : ?>
                                                 <option value="<?php echo $unit['lid'] ?>"><?php echo $unit['lname'] ?></option>
                                             <?php endforeach; ?>
@@ -175,7 +175,7 @@
                                         </h6>
                                     </label>
                                     <div class="col-md-6">
-                                        <input class="form-control" type="number" name="input_cost">
+                                        <input class="form-control" type="number" name="input_cost" value="<?php echo set_value('input_cost') ?>">
                                     </div>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
                                         </h6>
                                     </label>
                                     <div class="col-md-6">
-                                        <input class="form-control" type="number" name="input_price">
+                                        <input class="form-control" type="number" name="input_price" value="<?php echo set_value('input_price') ?>">
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                                         </h6>
                                     </label>
                                     <div class="col-md-6">
-                                        <input class="form-control" type="number" name="input_qty">
+                                        <input class="form-control" type="number" name="input_qty" value="<?php echo set_value('input_qty') ?>">
                                     </div>
                                 </div>
                             </div>

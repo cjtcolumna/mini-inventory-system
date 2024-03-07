@@ -28,7 +28,7 @@
         <!-- Start Page Content -->
         <!-- ============================================================== -->
 
-        <!-- unit edit modal content -->
+        <!-- material record delete modal content -->
         <div id="deleteUnitModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteUnitModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -54,6 +54,31 @@
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+
+        <!-- bom item delete modal content -->
+        <div id="deleteItemModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteItemModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="deleteItemModalLabel">Delete Item</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <form class="form-horizontal" action="<?php echo base_url("index.php/materials/view/" . $material['lid']) ?>" method="post" autocomplete="off">
+                        <div class="modal-body">
+                            Are you sure you want to delete this item?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="btn_delete_item" class="btn btn-success" name="btn_delete_item">Yes, Delete</button>
+                            <button class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
 
         <?php
         if (isset($error_msg)) {
@@ -184,7 +209,9 @@
                                 </tbody>
                             </table>
                             <a class="btn btn-secondary mt-5"><i class="fa fa-edit"></i> Edit</a>
-                            <a class="btn btn-danger text-light mt-5 ml-2" data-toggle="modal" data-target="#deleteUnitModal"><i class="fa fa-trash"></i> Delete</a>
+                            <?php if (!$material['is_used']) { ?>
+                                <a class="btn btn-danger text-light mt-5 ml-2" data-toggle="modal" data-target="#deleteUnitModal"><i class="fa fa-trash"></i> Delete</a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -210,7 +237,7 @@
                                         <tr>
                                             <td class="pt-1">
                                                 <select class="select2" name="select_bom_material" style="cursor: pointer; width: 100%;" onchange="updateSelectUnitOptions(this)">
-                                                    <option value="0">Select</option>
+                                                    <option>Select</option>
                                                     <?php foreach ($materials as $material) : ?>
                                                         <option value="<?php echo $material['lid'] ?>"><?php echo $material['lname'] ?></option>
                                                     <?php endforeach; ?>
@@ -227,7 +254,7 @@
                                                 </select>
                                             </td>
                                             <td class="pt-1" style="width: 1%">
-                                                <button type="submit" class="btn btn-success">ADD</button>
+                                                <button type="submit" class="btn btn-success" name="btn_add_item">ADD</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -255,14 +282,14 @@
                                         $material_total_cost = number_format((float) ($item['lcost'] * $item['lqty_consumed'] * $item['lmultiplier']), 2);
                                         $bom_total_cost += $material_total_cost;
                                     ?>
-                                        <tr>
+                                        <tr id="item_<?php echo $item['lid'] ?>">
                                             <td><?php echo $i ?></td>
                                             <td><?php echo $item['lname'] ?></td>
                                             <td><?php echo $item['lqty_consumed'] ?></td>
                                             <td><?php echo $item['ldisplay'] ?></td>
                                             <td><?php echo number_format((float) $item['lcost'], 2) ?></td>
                                             <td><?php echo $material_total_cost ?></td>
-                                            <td><i class="fa fa-trash-alt" style="cursor: pointer"></i></td>
+                                            <td><i class="fa fa-trash-alt" style="cursor: pointer" data-toggle="modal" data-target="#deleteItemModal" onclick="delete_bom_item(this)"></i></td>
                                         </tr>
                                     <?php
                                         $i++;
@@ -306,63 +333,69 @@
 <!-- ============================================================== -->
 <!-- End Wrapper -->
 <!-- ============================================================== -->
+<?php if ($material['lis_finish_product']) { ?>
+    <script>
+        let materials = <?php echo $json_materials ?>;
 
-<script>
-    let materials = <?php echo $json_materials ?>;
-
-    function updateSelectUnitOptions(element) {
-        let selected_index = element.selectedIndex //Selected Index
-
-        if (selected_index != 0) {
-            element.parentElement.parentElement.children[2].children[0].children[1].value = materials[selected_index - 1].lunit_id;
-            element.parentElement.parentElement.children[2].children[0].children[1].innerHTML = materials[selected_index - 1].lunit_name;
-            element.parentElement.parentElement.children[2].children[0].children[2].value = materials[selected_index - 1].lunit_set_id;
-            element.parentElement.parentElement.children[2].children[0].children[2].innerHTML = materials[selected_index - 1].lunit_set_name;
-        } else {
-            element.parentElement.parentElement.children[2].children[0].children[1].value = "";
-            element.parentElement.parentElement.children[2].children[0].children[1].innerHTML = "Unit";
-            element.parentElement.parentElement.children[2].children[0].children[2].value = "";
-            element.parentElement.parentElement.children[2].children[0].children[2].innerHTML = "Unit Set";
+        function delete_bom_item(element) {
+            let id = parseInt(element.parentElement.parentElement.id.match(/\d+/)[0]);
+            document.getElementById("btn_delete_item").value = id;
         }
-        updateSelect2();
-    }
 
-    function updateSelect2() {
-        // For select 2
-        $(".select2").select2();
-        $('.selectpicker').selectpicker();
-        $(".ajax").select2({
-            ajax: {
-                url: "https://api.github.com/search/repositories",
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
-                    return {
-                        q: params.term, // search term
-                        page: params.page
-                    };
+        function updateSelectUnitOptions(element) {
+            let selected_index = element.selectedIndex //Selected Index
+
+            if (selected_index != 0) {
+                element.parentElement.parentElement.children[2].children[0].children[1].value = materials[selected_index - 1].lunit_id;
+                element.parentElement.parentElement.children[2].children[0].children[1].innerHTML = materials[selected_index - 1].lunit_name;
+                element.parentElement.parentElement.children[2].children[0].children[2].value = materials[selected_index - 1].lunit_set_id;
+                element.parentElement.parentElement.children[2].children[0].children[2].innerHTML = materials[selected_index - 1].lunit_set_name;
+            } else {
+                element.parentElement.parentElement.children[2].children[0].children[1].value = "";
+                element.parentElement.parentElement.children[2].children[0].children[1].innerHTML = "Unit";
+                element.parentElement.parentElement.children[2].children[0].children[2].value = "";
+                element.parentElement.parentElement.children[2].children[0].children[2].innerHTML = "Unit Set";
+            }
+            updateSelect2();
+        }
+
+        function updateSelect2() {
+            // For select 2
+            $(".select2").select2();
+            $('.selectpicker').selectpicker();
+            $(".ajax").select2({
+                ajax: {
+                    url: "https://api.github.com/search/repositories",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function(data, params) {
+                        // parse the results into the format expected by Select2
+                        // since we are using custom formatting functions we do not need to
+                        // alter the remote JSON data, except to indicate that infinite
+                        // scrolling can be used
+                        params.page = params.page || 1;
+                        return {
+                            results: data.items,
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
+                            }
+                        };
+                    },
+                    cache: true
                 },
-                processResults: function(data, params) {
-                    // parse the results into the format expected by Select2
-                    // since we are using custom formatting functions we do not need to
-                    // alter the remote JSON data, except to indicate that infinite
-                    // scrolling can be used
-                    params.page = params.page || 1;
-                    return {
-                        results: data.items,
-                        pagination: {
-                            more: (params.page * 30) < data.total_count
-                        }
-                    };
-                },
-                cache: true
-            },
-            escapeMarkup: function(markup) {
-                return markup;
-            }, // let our custom formatter work
-            minimumInputLength: 1,
-            //templateResult: formatRepo, // omitted for brevity, see the source of this page
-            //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
-        });
-    }
-</script>
+                escapeMarkup: function(markup) {
+                    return markup;
+                }, // let our custom formatter work
+                minimumInputLength: 1,
+                //templateResult: formatRepo, // omitted for brevity, see the source of this page
+                //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+            });
+        }
+        <?php } ?>
+    </script>

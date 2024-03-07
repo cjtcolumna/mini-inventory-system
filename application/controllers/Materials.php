@@ -16,7 +16,7 @@ class Materials extends CI_Controller
         $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'));
 
         $data['title'] = 'MATERIALS';
-        $data['form_addons']= TRUE;
+        $data['form_addons'] = TRUE;
         $data['materials']  = $this->material_model->get_processed_list();
         $data['total_records'] = count($data['materials']);
 
@@ -43,11 +43,21 @@ class Materials extends CI_Controller
             //form validations
             $this->form_validation->set_rules('input_code', 'Code', 'required');
             $this->form_validation->set_rules('input_name', 'Name', 'required');
-            $this->form_validation->set_rules('select_material_unit_id', 'Unit', 'required');
-            $this->form_validation->set_rules('select_material_unit_set_id', 'Unit Set', 'required');
-            $this->form_validation->set_rules('input_cost', 'Qty', 'required');
-            $this->form_validation->set_rules('input_price', 'Qty', 'required');
-            $this->form_validation->set_rules('input_qty', 'Qty', 'required');
+            $this->form_validation->set_rules(
+                'select_material_unit_id',
+                'Unit',
+                'required|numeric',
+                array('numeric' => 'Selecting Unit is required.')
+            );
+            $this->form_validation->set_rules(
+                'select_material_unit_set_id',
+                'Unit',
+                'required|numeric',
+                array('numeric' => 'Selecting Unit Set is required.')
+            );
+            $this->form_validation->set_rules('input_cost', 'Cost', 'required');
+            $this->form_validation->set_rules('input_price', 'Price', 'required');
+            $this->form_validation->set_rules('input_qty', 'Qty (Inv)', 'required');
             if ($this->form_validation->run() === FALSE) {
                 //set error message
                 $data['error_msg'] = validation_errors();
@@ -86,6 +96,74 @@ class Materials extends CI_Controller
         $data['title'] = "MATERIALS | VIEW";
         $data['dropify'] = TRUE;
         $data['form_addons'] = TRUE;
+
+        //Button for adding BOM item
+        $btn_add_item = $this->input->post('btn_add_item');
+        //Button for deleting BOM item
+        $btn_delete_item = $this->input->post('btn_delete_item');
+        //Button for deleting Material/Product
+        $btn_delete = $this->input->post('btn_delete');
+
+        if (isset($btn_add_item)) {
+            $this->form_validation->set_rules(
+                'select_bom_material',
+                'Material',
+                'required|numeric',
+                array('numeric' => 'Selecting Material is required.')
+            );
+            $this->form_validation->set_rules('input_bom_material_consumed', 'Quantity', 'required');
+            $this->form_validation->set_rules(
+                'select_bom_material_unit',
+                'Material',
+                'required|numeric',
+                array('numeric' => 'Selecting Unit is required.')
+            );
+
+
+            if ($this->form_validation->run() === FALSE) {
+                //set error message
+                $data['error_msg'] = validation_errors();
+            } else {
+                //add item
+                $this->material_model->add_item_to_bom($material_id);
+            }
+        }else if (isset($btn_delete_item)){
+            $bom_id = $btn_delete_item;
+            $this->material_model->delete_item_from_bom($bom_id);
+        }else if (isset($btn_delete)){
+            //delete material data
+            $this->material_model->delete_material_record($material_id);
+            //set success message
+            $this->session->set_flashdata('success_msg', 'Material record successfully deleted.');
+            //redirect
+            redirect('materials/list');
+        }
+
+
+        //get material record where id=material_id
+        $material_record = $this->material_model->get_material_record($material_id);
+        if (!empty($material_record)) {
+            $data['material'] = $material_record;
+            $data['material']['material_id'] = $material_id;
+            $data['material']['is_used'] = $this->material_model->is_material_used($material_id);
+
+            if ($data['material']['lis_finish_product']) {
+                $data['bom'] = $this->material_model->get_bom_record($material_id);
+                $data['materials'] = $this->material_model->get_processed_list(TRUE);
+                $data['json_materials'] =  json_encode($data['materials']);
+            }
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('materials/view', $data);
+            $this->load->view('templates/footer', $data);
+        } else {
+            //no record found
+            redirect('materials/list');
+        }
+
+
+        //OLD
+
         //record settings
         $btn_1 = $this->input->post('btn_record_settings');
         //change password
@@ -145,33 +223,6 @@ class Materials extends CI_Controller
                 //redirect
                 redirect('materials/list');
             }
-        }
-
-        //get material record where id=material_id
-        $material_record = $this->material_model->get_material_record($material_id);
-        if (!empty($material_record)) {
-            $data['material'] = $material_record;
-            $data['material']['material_id'] = $material_id;
-
-            if ($data['material']['lis_finish_product']) {
-                $data['bom'] = $this->material_model->get_bom_record($material_id);
-                $data['materials'] = $this->material_model->get_processed_list();
-                //process data
-                for ($i=0; $i < sizeof($data['materials']); $i++) { 
-                    if($data['materials'][$i]['lid'] == $material_id) {
-                        unset($data['materials'][$i]);
-                        break;
-                    }
-                }
-                $data['json_materials'] =  json_encode($data['materials']);
-            }
-
-            $this->load->view('templates/header', $data);
-            $this->load->view('materials/view', $data);
-            $this->load->view('templates/footer', $data);
-        } else {
-            //no record found
-            redirect('materials/list');
         }
     }
 
