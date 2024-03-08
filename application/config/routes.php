@@ -73,6 +73,7 @@ $route['units/(:any)'] = 'units/index';
 
 $route['materials/get_id/(:any)'] = 'materials/get_id/$1';
 $route['materials/create'] = 'materials/create';
+$route['materials/edit/(:any)'] = 'materials/edit/$1';
 $route['materials/list'] = 'materials/index';
 $route['materials/(:any)'] = 'materials/index';
 

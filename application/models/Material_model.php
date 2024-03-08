@@ -12,28 +12,7 @@ class material_model extends CI_Model
         $query = $this->db->get('tblmaterial');
         return $query->result_array();
     }
-
-    public function get_unit_list()
-    {
-        $query = $this->db->get('tblunit');
-        return $query->result_array();
-    }
-
-    public function get_processed_list($materials_only = FALSE)
-    {
-       
-        $where = $materials_only ? " WHERE lis_finish_product = 0" : "";
-        $query = $this->db->query(
-            "SELECT m.lid, m.lcode, m.limage, m.lname, m.lcategory, m.lunit_id, m.lunit_set_id, m.lunit_set_default, m.lcost, m.lprice, m.lqty, m.lis_finish_product, u.lname as lunit_name, u.ldisplay as lunit_display, u.lqty as lunit_qty, us.lname as lunit_set_name, us.ldisplay as lunit_set_display, us.lqty as lunit_set_qty
-            FROM tblmaterial AS m
-            JOIN tblunit AS u ON m.lunit_id = u.lid
-            JOIN tblunit AS us ON m.lunit_set_id = us.lid" .
-            $where
-        );
-        $result = $query->result_array();
-        return $result;
-    }
-
+    
     public function get_material_record($material_id)
     {
         $query = $this->db->query(
@@ -44,6 +23,27 @@ class material_model extends CI_Model
             WHERE m.lid = " . $material_id
         );
         return $query->row_array();
+    }
+
+    public function get_unit_list()
+    {
+        $query = $this->db->get('tblunit');
+        return $query->result_array();
+    }
+
+    public function get_processed_list($materials_only = FALSE)
+    {
+
+        $where = $materials_only ? " WHERE lis_finish_product = 0" : "";
+        $query = $this->db->query(
+            "SELECT m.lid, m.lcode, m.limage, m.lname, m.lcategory, m.lunit_id, m.lunit_set_id, m.lunit_set_default, m.lcost, m.lprice, m.lqty, m.lis_finish_product, u.lname as lunit_name, u.ldisplay as lunit_display, u.lqty as lunit_qty, us.lname as lunit_set_name, us.ldisplay as lunit_set_display, us.lqty as lunit_set_qty
+            FROM tblmaterial AS m
+            JOIN tblunit AS u ON m.lunit_id = u.lid
+            JOIN tblunit AS us ON m.lunit_set_id = us.lid" .
+                $where
+        );
+        $result = $query->result_array();
+        return $result;
     }
 
     public function get_bom_record($finish_product_id)
@@ -64,6 +64,20 @@ class material_model extends CI_Model
         $query = $this->db->get_where('tblmaterial', array('lcode' => $material_code));
         $row = $query->row_array();
         return $row['lid'];
+    }
+
+    public function get_image_name($material_id)
+    {
+        $query = $this->db->get_where('tblmaterial', array('lid' => $material_id));
+        $row = $query->row_array();
+        return $row['limage'];
+    }
+
+    public function get_code($material_id)
+    {
+        $query = $this->db->get_where('tblmaterial', array('lid' => $material_id));
+        $row = $query->row_array();
+        return $row['lcode'];
     }
 
     public function create_record($file_name)
@@ -133,55 +147,6 @@ class material_model extends CI_Model
         $this->db->delete('tblmaterial', array('lid' => $material_id));
     }
 
-    public function is_material_used($material_id){
-        $query = $this->db->get_where('tblbom', array('lmaterial_id' => $material_id));
-        return $query->num_rows() > 0 ? TRUE: FALSE;
-    }
-    //USED
-
-
-
-
-    public function update_material_record($material_id, $image_name = '')
-    {
-        $checkbox = $this->input->post('checkbox_default_unit');
-        $is_unit_set_default = $checkbox ? TRUE : FALSE;
-
-        $data = array(
-            'lname' => $this->input->post('input_name'),
-            'lcategory' => $this->input->post('input_category'),
-            'lunit' => $this->input->post('input_unit'),
-            'lunit_set' => $this->input->post('input_unit_set'),
-            'lunit_set_default' => $is_unit_set_default,
-            'lunit_qty' => $this->input->post('input_unit_qty'),
-            'lqty' => $this->input->post('input_qty'),
-        );
-
-        if (!empty($image_name)) {
-            $data['limage'] = $image_name;
-        }
-        $this->db->where('lid', $material_id);
-        $this->db->update('tblmaterial', $data);
-    }
-
-    
-
-
-
-    public function get_code($material_id)
-    {
-        $query = $this->db->get_where('tblmaterial', array('lid' => $material_id));
-        $row = $query->row_array();
-        return $row['lcode'];
-    }
-
-    public function get_image_name($material_id)
-    {
-        $query = $this->db->get_where('tblmaterial', array('lid' => $material_id));
-        $row = $query->row_array();
-        return $row['limage'];
-    }
-
     public function delete_image($image_name)
     {
         $file_path = "uploads\\materials\\images\\$image_name";
@@ -194,5 +159,41 @@ class material_model extends CI_Model
         } else {
             FALSE;
         }
+    }
+
+    public function is_material_used($material_id)
+    {
+        $query = $this->db->get_where('tblbom', array('lmaterial_id' => $material_id));
+        return $query->num_rows() > 0 ? TRUE : FALSE;
+    }
+    //USED
+
+
+
+
+    public function update_material_record($material_id, $image_name = '')
+    {
+        $is_finish_product = $this->input->post('checkbox_is_finish_product') ? TRUE : FALSE;
+        $is_unit_set_default = $this->input->post('checkbox_default_unit') ? TRUE : FALSE;
+
+        $inputs = array(
+            'lcode' => $this->input->post('input_code'),
+            'lname' => $this->input->post('input_name'),
+            'lcategory' => $this->input->post('input_category'),
+            'lunit_id' => $this->input->post('select_material_unit_id'),
+            'lunit_set_id' => $this->input->post('select_material_unit_set_id'),
+            'lunit_set_default' => $is_unit_set_default,
+            'lcost' => $this->input->post('input_cost'),
+            'lprice' => $this->input->post('input_price'),
+            'lqty' => $this->input->post('input_qty'),
+            'lis_finish_product' => $is_finish_product
+        );
+
+        if (!empty($image_name)) {
+            $inputs['limage'] = $image_name;
+        }
+        
+        $this->db->where('lid', $material_id);
+        $this->db->update('tblmaterial', $inputs);
     }
 }

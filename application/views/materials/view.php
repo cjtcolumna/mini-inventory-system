@@ -97,6 +97,7 @@
             <?php
             };
         };
+        if(!isset($success_msg)) $success_msg = $this->session->flashdata('success_msg');
         if (isset($success_msg)) {
             if (!empty($success_msg)) {
             ?>
@@ -208,7 +209,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <a class="btn btn-secondary mt-5"><i class="fa fa-edit"></i> Edit</a>
+                            <a class="btn btn-secondary mt-5" href="<?php echo base_url('index.php/materials/edit/' . $material['lid']) ?>"><i class="fa fa-edit" ></i> Edit</a>
                             <?php if (!$material['is_used']) { ?>
                                 <a class="btn btn-danger text-light mt-5 ml-2" data-toggle="modal" data-target="#deleteUnitModal"><i class="fa fa-trash"></i> Delete</a>
                             <?php } ?>
@@ -220,7 +221,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Other Details</h4>
-                        <?php if ($material['lis_finish_product']) { ?>
+                        <?php if ($is_finish_product) { ?>
                             <h5 class="card-title mt-4">Bills of Materials (BOM)</h5>
                             <hr>
                             <table class="table table-borderless w-100">
@@ -333,7 +334,7 @@
 <!-- ============================================================== -->
 <!-- End Wrapper -->
 <!-- ============================================================== -->
-<?php if ($material['lis_finish_product']) { ?>
+<?php if ($is_finish_product) { ?>
     <script>
         let materials = <?php echo $json_materials ?>;
 
@@ -397,5 +398,5 @@
                 //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
             });
         }
-        <?php } ?>
     </script>
+<?php }; ?>

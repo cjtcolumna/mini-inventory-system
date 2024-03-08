@@ -127,10 +127,10 @@ class Materials extends CI_Controller
                 //add item
                 $this->material_model->add_item_to_bom($material_id);
             }
-        }else if (isset($btn_delete_item)){
+        } else if (isset($btn_delete_item)) {
             $bom_id = $btn_delete_item;
             $this->material_model->delete_item_from_bom($bom_id);
-        }else if (isset($btn_delete)){
+        } else if (isset($btn_delete)) {
             //delete material data
             $this->material_model->delete_material_record($material_id);
             //set success message
@@ -139,15 +139,15 @@ class Materials extends CI_Controller
             redirect('materials/list');
         }
 
-
         //get material record where id=material_id
         $material_record = $this->material_model->get_material_record($material_id);
         if (!empty($material_record)) {
             $data['material'] = $material_record;
             $data['material']['material_id'] = $material_id;
             $data['material']['is_used'] = $this->material_model->is_material_used($material_id);
+            $data['is_finish_product'] = $data['material']['lis_finish_product'];
 
-            if ($data['material']['lis_finish_product']) {
+            if ($data['is_finish_product']) {
                 $data['bom'] = $this->material_model->get_bom_record($material_id);
                 $data['materials'] = $this->material_model->get_processed_list(TRUE);
                 $data['json_materials'] =  json_encode($data['materials']);
@@ -160,22 +160,41 @@ class Materials extends CI_Controller
             //no record found
             redirect('materials/list');
         }
+    }
 
+    public function edit($material_id)
+    {
+        $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'));
 
-        //OLD
+        $data['title'] = 'MATERIALS | NEW';
+        $data['dropify'] = TRUE;
+        $data['form_addons'] = TRUE;
 
-        //record settings
-        $btn_1 = $this->input->post('btn_record_settings');
-        //change password
-        $btn_2 = $this->input->post('btn_record_deletion');
+        $data['material']  = $this->material_model->get_material_record($material_id);
+        $data['units'] = $this->material_model->get_unit_list();
+        $data['material_id'] = $material_id;
 
-        if (isset($btn_1)) {
+        //If btn_save is clicked
+        $btn_save = $this->input->post('btn_save');
+        if (isset($btn_save)) {
             //form validations
+            $this->form_validation->set_rules('input_code', 'Code', 'required');
             $this->form_validation->set_rules('input_name', 'Name', 'required');
-            $this->form_validation->set_rules('input_unit', 'Unit', 'required');
-            $this->form_validation->set_rules('input_unit_set', 'Unit Set', 'required');
-            $this->form_validation->set_rules('input_unit_qty', 'Unit Qty', 'required');
-            $this->form_validation->set_rules('input_qty', 'Qty', 'required');
+            $this->form_validation->set_rules(
+                'select_material_unit_id',
+                'Unit',
+                'required|numeric',
+                array('numeric' => 'Selecting Unit is required.')
+            );
+            $this->form_validation->set_rules(
+                'select_material_unit_set_id',
+                'Unit',
+                'required|numeric',
+                array('numeric' => 'Selecting Unit Set is required.')
+            );
+            $this->form_validation->set_rules('input_cost', 'Cost', 'required');
+            $this->form_validation->set_rules('input_price', 'Price', 'required');
+            $this->form_validation->set_rules('input_qty', 'Qty (Inv)', 'required');
 
             if ($this->form_validation->run() === FALSE) {
                 //set error message
@@ -200,29 +219,28 @@ class Materials extends CI_Controller
                         //update data
                         $this->material_model->update_material_record($material_id, $image_name);
                         //set success message
-                        $data['success_msg'] = 'Material record successfully updated.';
+                        $this->session->set_flashdata('success_msg', 'Product record successfully updated.');
+                        //redirect
+                        redirect("materials/view/{$material_id}");
                     }
                 } else {
                     //update data
                     $this->material_model->update_material_record($material_id);
                     //set success message
-                    $data['success_msg'] = 'Material record successfully updated.';
+                    $this->session->set_flashdata('success_msg', 'Product record successfully updated.');
+                    //redirect
+                    redirect("materials/view/{$material_id}");
                 }
             }
-        } else if (isset($btn_2)) {
-            $this->form_validation->set_rules('checkbox_delete', 'Checkbox', 'required');
+        }
 
-            if ($this->form_validation->run() === FALSE) {
-                //set error message
-                $data['error_msg'] = validation_errors();
-            } else {
-                //delete material data
-                $this->material_model->delete_material_record($material_id);
-                //set success message
-                $this->session->set_flashdata('success_msg', 'Material record successfully deleted.');
-                //redirect
-                redirect('materials/list');
-            }
+        if (!empty($data['material'])) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('materials/edit', $data);
+            $this->load->view('templates/footer', $data);
+        } else {
+            //no record found
+            redirect('materials/list');
         }
     }
 
