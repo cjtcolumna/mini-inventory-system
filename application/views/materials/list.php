@@ -43,39 +43,42 @@
         <?php
         };
         ?>
+
         <div class="row">
             <div class="col-lg-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            Action
-                        </h4>
-                        <hr>
-                        <div class="d-block">
-                            <a class="btn btn-success w-100 mb-3" href="<?php echo base_url('index.php/materials/create') ?>"><i class="fas fa-plus"></i> Create New</a>
-                            <a class="btn btn-info w-100 mb-3" href="<?php echo base_url('index.php/materials/list') ?>"><i class="fas fa-retweet"></i> Clear Sorting</a>
-                        </div>
-                        <h4 class="card-title mt-3">
-                            Filters
-                        </h4>
-                        <hr>
-                        <div class="input-group mb-4">
-                            <input type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1">
-                            <div class="input-group-append">
-                                <button class="btn btn-info" type="button"><i class="fa fa-search"></i></button>
+                <form name="filter_form" action="<?php echo base_url('index.php/materials/list') ?>" method="get">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                Action
+                            </h4>
+                            <hr>
+                            <div class="d-block">
+                                <a class="btn btn-success w-100 mb-3" href="<?php echo base_url('index.php/materials/create') ?>"><i class="fas fa-plus"></i> Create New</a>
+                                <a class="btn btn-info w-100 mb-3" href="<?php echo base_url('index.php/materials/list') ?>"><i class="fas fa-retweet"></i> Clear Sorting</a>
                             </div>
+                            <h4 class="card-title mt-3">
+                                Filters
+                            </h4>
+                            <hr>
+                            <div class="input-group mb-4">
+                                <input name="keyword" type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1">
+                                <div class="input-group-append">
+                                    <button class="btn btn-info" type="submit"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                            <!-- <div>
+                                <h5>Sort by:</h5>
+                                <select class="selectpicker mb-3 mr-2" data-style="btn-info btn-outline-info">
+                                    <option data-tokens="all">All</option>
+                                    <option data-tokens="materials">Materials</option>
+                                    <option data-tokens="finish_product">Finish Products</option>
+                                </select>
+                            </div> -->
                         </div>
-                        <div>
-                            <h5>Sort by:</h5>
-                            <select class="selectpicker mb-3 mr-2" data-style="btn-info btn-outline-info">
-                                <option data-tokens="all">All</option>
-                                <option data-tokens="materials">Materials</option>
-                                <option data-tokens="finish_product">Finish Products</option>
-                            </select>
-                        </div>
-                    </div>
 
-                </div>
+                    </div>
+                </form>
             </div>
             <div class="col-lg-9">
                 <div class="card">
@@ -89,7 +92,14 @@
                             </h4>
                         </div>
                         <hr>
-                        <table class="table table-hover mt-5">
+                        <?php if (!empty($keyword)) { ?>
+                            <h5>Filtered by:
+                                <a href="<?php echo base_url() . 'index.php/materials/list' ?>" class="btn btn-rounded btn-info btn-sm text-white"><?php echo $keyword ?>
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </h5>
+                        <?php } ?>
+                        <table class="table table-hover mt-3">
                             <thead>
                                 <tr>
                                     <th class="font-weight-bold" style="width: 15%">Image</th>
@@ -101,7 +111,7 @@
                                 <?php foreach ($materials as $material) : ?>
                                     <tr style="cursor: pointer;" onclick="viewRecord(this)">
                                         <td class="align-middle">
-                                            <img src="<?php echo base_url("uploads/materials/images/{$material['limage']}") ?>" class="img-fluid img-thumbnail" alt="Material Image"  style="width: 200px; height: 150px; object-fit: cover;">
+                                            <img src="<?php echo base_url("uploads/materials/images/{$material['limage']}") ?>" class="img-fluid img-thumbnail" alt="Material Image" style="width: 200px; height: 150px; object-fit: cover;">
                                         </td>
                                         <td>
                                             <div class="row">

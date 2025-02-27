@@ -15,10 +15,13 @@ class Materials extends CI_Controller
     {
         $this->currentuserclass->is_logged_in($this->session->userdata('logged_in'));
 
+        $keyword = $this->input->get('keyword');
+
         $data['title'] = 'MATERIALS';
         $data['form_addons'] = TRUE;
-        $data['materials']  = $this->material_model->get_processed_list();
+        $data['materials']  = $this->material_model->get_processed_list(false, $keyword);
         $data['total_records'] = count($data['materials']);
+        $data['keyword'] = $keyword;
 
         $this->load->view('templates/header', $data);
         $this->load->view('materials/list', $data);

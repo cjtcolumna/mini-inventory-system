@@ -31,19 +31,35 @@ class material_model extends CI_Model
         return $query->result_array();
     }
 
-    public function get_processed_list($materials_only = FALSE)
+    public function get_processed_list($materials_only = FALSE, $keyword = null)
     {
+        $this->db->select('
+        m.lid, m.lcode, m.limage, m.lname, m.lcategory, m.lunit_id, m.lunit_set_id, m.lunit_set_default, m.lcost, m.lprice, m.lqty, m.lis_finish_product, 
+        u.lname as lunit_name, u.ldisplay as lunit_display, u.lqty as lunit_qty, 
+        us.lname as lunit_set_name, us.ldisplay as lunit_set_display, us.lqty as lunit_set_qty');
+        $this->db->from('tblmaterial AS m');
+        $this->db->join('tblunit AS u', 'm.lunit_id = u.lid');
+        $this->db->join('tblunit AS us', 'm.lunit_set_id = us.lid');
+        if ($materials_only) {
+            $this->db->where('m.lis_finish_product', 0);
+        }
+        if ($keyword) {
+            $this->db->like('m.lname', $keyword);
+        }
+        $query = $this->db->get();
+        return $query->result_array();
 
-        $where = $materials_only ? " WHERE lis_finish_product = 0" : "";
-        $query = $this->db->query(
-            "SELECT m.lid, m.lcode, m.limage, m.lname, m.lcategory, m.lunit_id, m.lunit_set_id, m.lunit_set_default, m.lcost, m.lprice, m.lqty, m.lis_finish_product, u.lname as lunit_name, u.ldisplay as lunit_display, u.lqty as lunit_qty, us.lname as lunit_set_name, us.ldisplay as lunit_set_display, us.lqty as lunit_set_qty
-            FROM tblmaterial AS m
-            JOIN tblunit AS u ON m.lunit_id = u.lid
-            JOIN tblunit AS us ON m.lunit_set_id = us.lid" .
-                $where
-        );
-        $result = $query->result_array();
-        return $result;
+        // OLD
+        // $where = $materials_only ? " WHERE lis_finish_product = 0" : "";
+        // $query = $this->db->query(
+        //     "SELECT m.lid, m.lcode, m.limage, m.lname, m.lcategory, m.lunit_id, m.lunit_set_id, m.lunit_set_default, m.lcost, m.lprice, m.lqty, m.lis_finish_product, u.lname as lunit_name, u.ldisplay as lunit_display, u.lqty as lunit_qty, us.lname as lunit_set_name, us.ldisplay as lunit_set_display, us.lqty as lunit_set_qty
+        //     FROM tblmaterial AS m
+        //     JOIN tblunit AS u ON m.lunit_id = u.lid
+        //     JOIN tblunit AS us ON m.lunit_set_id = us.lid" .
+        //         $where
+        // );
+        // $result = $query->result_array();
+        // return $result;
     }
 
     public function get_bom_record($finish_product_id)
