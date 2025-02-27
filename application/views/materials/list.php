@@ -101,7 +101,7 @@
                                 <?php foreach ($materials as $material) : ?>
                                     <tr style="cursor: pointer;" onclick="viewRecord(this)">
                                         <td class="align-middle">
-                                            <img src="<?php echo base_url("uploads/materials/images/{$material['limage']}") ?>" class="img-fluid img-thumbnail" alt="Material Image">
+                                            <img src="<?php echo base_url("uploads/materials/images/{$material['limage']}") ?>" class="img-fluid img-thumbnail" alt="Material Image"  style="width: 200px; height: 150px; object-fit: cover;">
                                         </td>
                                         <td>
                                             <div class="row">

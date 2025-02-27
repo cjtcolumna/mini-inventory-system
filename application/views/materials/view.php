@@ -126,7 +126,10 @@
                         </div>
                         <h5 class="card-title mt-3">Details</h5>
                         <hr>
-                        <img src="<?php echo base_url("uploads/materials/images/{$material['limage']}") ?>" class="img-fluid" alt="Material Image">
+                        <!-- Center Div -->
+                        <div class="text-center">
+                            <img src="<?php echo base_url("uploads/materials/images/{$material['limage']}") ?>" class="img-fluid" alt="Material Image" style="width: 300px; height: 300px; object-fit: cover;">
+                        </div>
                         <div class="container">
                             <table class="mt-5 w-100 text-dark">
                                 <tbody>
