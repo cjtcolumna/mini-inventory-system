@@ -46,7 +46,7 @@ class Dashboard extends CI_Controller
                         'email' => $row['lemail']
                     );
                     $this->session->set_userdata($userdata);
-                    redirect('dashboard/home');
+                    redirect('materials/list');
                 }else {
                     $data['error_msg'] = 'Account not found.';
                 }

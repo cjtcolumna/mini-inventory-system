@@ -1,69 +1,57 @@
-###################
-What is CodeIgniter
-###################
+# Mini Inventory System
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+This Mini Inventory System was developed as a requirement for the OpenZN IT Solutions bootcamp. It’s designed to help track and manage inventory efficiently, keeping stock levels organized and up to date.
 
-*******************
-Release Information
-*******************
+## Features
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<http://www.codeigniter.com/download>`_ page.
+- Inventory Management
+- User Management
+- Customer Management
+- Units Management
 
-**************************
-Changelog and New Features
-**************************
+## Screenshots
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+Materials List 
 
-*******************
-Server Requirements
-*******************
+![Materials List View Screenshot](/screenshots/Materials List.png)
 
-PHP version 5.4 or newer is recommended.
+Item View
 
-It should work on 5.2.4 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+![Item View Screenshot](/screenshots/Item View.png)
 
-************
-Installation
-************
+## Tech Stack
 
-Please see the `installation section <http://www.codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
+- **HTML** – Structure and layout
+- **CSS** – Styling and design
+- **JavaScript** – Client-side scripting and interactivity
+- **PHP 5.6** – Server-side scripting
+- **CodeIgniter 3** – PHP framework for MVC architecture
+- **MySQL** – Database management
 
-*******
-License
-*******
+## Setup Instructions
 
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
+1. Clone the repository.
+2. Import the Database file into MySQL (db_backups/test_db/inventory_db.sql)
+3. Configure database settings in the CodeIgniter `config/database.php` file.
+4. Ensure your server environment supports PHP and CodeIgniter.
+5. Launch the system via a local server (like XAMPP or WAMP).
+6. Go to (http://localhost/mini-inventory-system/index.php/dashboard/login)
 
-*********
-Resources
-*********
+## Usage
 
--  `User Guide <http://www.codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community IRC <http://www.codeigniter.com/irc>`_
+- Navigate to the home page to view inventory.
+- Use the form to add new items.
+- Edit or delete items directly from the inventory table.
 
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_, thank you.
+## Contact
 
-***************
-Acknowledgement
-***************
+For any questions or suggestions, feel free to reach out to me:
 
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+- **Name:** Cenard Jade Tenorio Columna
+- **Email:** [cenardjade.columna@gmail.com](mailto\:cenardjade.columna@gmail.com)
+- **Phone:** 09610831027
+
+---
+
+Let me know if you’d like me to refine or add anything!
+

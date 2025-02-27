@@ -46,6 +46,9 @@ class material_model extends CI_Model
         if ($keyword) {
             $this->db->like('m.lname', $keyword);
         }
+
+        $this->db->order_by('m.lid', 'DESC');
+
         $query = $this->db->get();
         return $query->result_array();
 
