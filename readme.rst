@@ -11,13 +11,13 @@ This Mini Inventory System was developed as a requirement for the OpenZN IT Solu
 
 ## Screenshots
 
-Materials List 
+### Materials List 
 
-![Materials List View Screenshot](/screenshots/Materials List.png)
+![Materials List View Screenshot](/screenshots/Materials_List.png)
 
-Item View
+### Item View
 
-![Item View Screenshot](/screenshots/Item View.png)
+![Item View Screenshot](/screenshots/Item_View.png)
 
 ## Tech Stack
 
@@ -31,11 +31,11 @@ Item View
 ## Setup Instructions
 
 1. Clone the repository.
-2. Import the Database file into MySQL (db_backups/test_db/inventory_db.sql)
+2. Import the database file into MySQL (`db_backups/test_db/inventory_db.sql`)
 3. Configure database settings in the CodeIgniter `config/database.php` file.
 4. Ensure your server environment supports PHP and CodeIgniter.
 5. Launch the system via a local server (like XAMPP or WAMP).
-6. Go to (http://localhost/mini-inventory-system/index.php/dashboard/login)
+6. Go to [http://localhost/mini-inventory-system/index.php/dashboard/login](http://localhost/mini-inventory-system/index.php/dashboard/login)
 
 ## Usage
 
@@ -48,7 +48,7 @@ Item View
 For any questions or suggestions, feel free to reach out to me:
 
 - **Name:** Cenard Jade Tenorio Columna
-- **Email:** [cenardjade.columna@gmail.com](mailto\:cenardjade.columna@gmail.com)
+- **Email:** cenardjade.columna@gmail.com
 - **Phone:** 09610831027
 
 ---
