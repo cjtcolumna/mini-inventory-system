@@ -13,11 +13,11 @@ This Mini Inventory System was developed as a requirement for the OpenZN IT Solu
 
 ### Materials List 
 
-![Materials List View Screenshot](/screenshots/Materials_List.png)
+![Materials List View Screenshot](./screenshots/Materials_List.jpg)
 
 ### Item View
 
-![Item View Screenshot](/screenshots/Item_View.png)
+![Item View Screenshot](./screenshots/Item_View.jpg)
 
 ## Tech Stack
 
