@@ -50,38 +50,47 @@
                         <h4 class="card-title">Customers</h4>
                         <a class="btn btn-sm btn-success text-white" href="<?php echo base_url('index.php/customers/create') ?>" style="width: 90px">Add</a>
                         <div class="table-responsive mt-4">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Code</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Contact</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    foreach ($customers as $customer) :
-                                        $customer_id = $customer['lid'];
-                                        $customer_code = $customer['lcode'];
-                                        $customer_firstname = $customer['lfirstname'];
-                                        $customer_lastname = $customer['llastname'];
-                                        $customer_email = $customer['lcontact'];
-
-                                    ?>
-                                        <tr style="cursor: pointer;" onclick="viewRow(this)">
-                                            <td><?php echo "$customer_id" ?></td>
-                                            <td><?php echo "$customer_code" ?></td>
-                                            <td><?php echo "$customer_firstname" ?></td>
-                                            <td><?php echo "$customer_lastname" ?></td>
-                                            <td><?php echo "$customer_email" ?></td>
+                            <?php if (!empty($customers)) { ?>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Code</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Contact</th>
                                         </tr>
-                                    <?php
-                                    endforeach;
-                                    ?>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($customers as $customer) :
+                                            $customer_id = $customer['lid'];
+                                            $customer_code = $customer['lcode'];
+                                            $customer_firstname = $customer['lfirstname'];
+                                            $customer_lastname = $customer['llastname'];
+                                            $customer_email = $customer['lcontact'];
+
+                                        ?>
+                                            <tr style="cursor: pointer;" onclick="viewRow(this)">
+                                                <td><?php echo "$customer_id" ?></td>
+                                                <td><?php echo "$customer_code" ?></td>
+                                                <td><?php echo "$customer_firstname" ?></td>
+                                                <td><?php echo "$customer_lastname" ?></td>
+                                                <td><?php echo "$customer_email" ?></td>
+                                            </tr>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                    </tbody>
+                                </table>
+                            <?php } else { ?>
+                                <div class="alert alert-warning text-center">
+                                    <h4 class="text-warning">
+                                        <i class="fa fa-exclamation-circle"></i>
+                                        No records found.
+                                    </h4>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
