@@ -99,66 +99,75 @@
                                 </a>
                             </h5>
                         <?php } ?>
-                        <table class="table table-hover mt-3">
-                            <thead>
-                                <tr>
-                                    <th class="font-weight-bold" style="width: 15%">Image</th>
-                                    <th class="font-weight-bold">Item</th>
-                                    <th class="font-weight-bold">Details</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($materials as $material) : ?>
-                                    <tr style="cursor: pointer;" onclick="viewRecord(this)">
-                                        <td class="align-middle">
-                                            <img src="<?php echo base_url("uploads/materials/images/{$material['limage']}") ?>" class="img-fluid img-thumbnail" alt="Material Image" style="width: 200px; height: 150px; object-fit: cover;">
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-xl-4 font-weight-normal">Code:</div>
-                                                <div class="col-xl-8"><?php echo $material['lcode'] ?></div>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-xl-4 font-weight-normal">Name:</span>
-                                                <span class="col-xl-8"><?php echo $material['lname'] ?></span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-xl-4 font-weight-normal">Category:</span>
-                                                <span class="col-xl-8"><?php echo $material['lcategory'] ?></span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-xl-4 font-weight-normal">Unit:</div>
-                                                <div class="col-xl-8"><?php echo $material['lunit_display'] ?></div>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-xl-4 font-weight-normal">Unit Set:</span>
-                                                <span class="col-xl-8"><?php echo $material['lunit_set_display'] ?></span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-xl-4 font-weight-normal">Cost:</span>
-                                                <span class="col-xl-8"><?php echo $material['lcost'] ?></span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-xl-4 font-weight-normal">Price:</span>
-                                                <span class="col-xl-8"><?php echo $material['lprice'] ?></span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-xl-4 font-weight-normal">Qty (Inv):</span>
-                                                <?php
-                                                $qty = $material['lunit_set_default'] ?
-                                                    (string) (round($material['lqty'] / $material['lunit_set_qty'], 2)) . " " . $material['lunit_set_display'] :
-                                                    (string) $material['lqty'] . " " . $material['lunit_display'];
-                                                ?>
-                                                <span class="col-xl-8"><?php echo $qty ?></span>
-                                            </div>
-                                        </td>
+                        <?php if (!empty($materials)) { ?>
+                            <table class="table table-hover mt-3">
+                                <thead>
+                                    <tr>
+                                        <th class="font-weight-bold" style="width: 15%">Image</th>
+                                        <th class="font-weight-bold">Item</th>
+                                        <th class="font-weight-bold">Details</th>
                                     </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                        <hr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($materials as $material) : ?>
+                                        <tr style="cursor: pointer;" onclick="viewRecord(this)">
+                                            <td class="align-middle">
+                                                <img src="<?php echo base_url("uploads/materials/images/{$material['limage']}") ?>" class="img-fluid img-thumbnail" alt="Material Image" style="width: 200px; height: 150px; object-fit: cover;">
+                                            </td>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-xl-4 font-weight-normal">Code:</div>
+                                                    <div class="col-xl-8"><?php echo $material['lcode'] ?></div>
+                                                </div>
+                                                <div class="row">
+                                                    <span class="col-xl-4 font-weight-normal">Name:</span>
+                                                    <span class="col-xl-8"><?php echo $material['lname'] ?></span>
+                                                </div>
+                                                <div class="row">
+                                                    <span class="col-xl-4 font-weight-normal">Category:</span>
+                                                    <span class="col-xl-8"><?php echo $material['lcategory'] ?></span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-xl-4 font-weight-normal">Unit:</div>
+                                                    <div class="col-xl-8"><?php echo $material['lunit_display'] ?></div>
+                                                </div>
+                                                <div class="row">
+                                                    <span class="col-xl-4 font-weight-normal">Unit Set:</span>
+                                                    <span class="col-xl-8"><?php echo $material['lunit_set_display'] ?></span>
+                                                </div>
+                                                <div class="row">
+                                                    <span class="col-xl-4 font-weight-normal">Cost:</span>
+                                                    <span class="col-xl-8"><?php echo $material['lcost'] ?></span>
+                                                </div>
+                                                <div class="row">
+                                                    <span class="col-xl-4 font-weight-normal">Price:</span>
+                                                    <span class="col-xl-8"><?php echo $material['lprice'] ?></span>
+                                                </div>
+                                                <div class="row">
+                                                    <span class="col-xl-4 font-weight-normal">Qty (Inv):</span>
+                                                    <?php
+                                                    $qty = $material['lunit_set_default'] ?
+                                                        (string) (round($material['lqty'] / $material['lunit_set_qty'], 2)) . " " . $material['lunit_set_display'] :
+                                                        (string) $material['lqty'] . " " . $material['lunit_display'];
+                                                    ?>
+                                                    <span class="col-xl-8"><?php echo $qty ?></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                            <hr>
+                        <?php } else { ?>
+                            <div class="alert alert-warning text-center">
+                                <h4 class="text-warning">
+                                    <i class="fa fa-exclamation-circle"></i>
+                                    No records found.
+                                </h4>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
